@@ -25,6 +25,66 @@ function naarcover () {
 
 
 
+// variables
+// const mainHeading = $('h1')
+
+
+
+
+// logica
+fetchData()
+
+
+
+
+// functions
+function fetchData (){
+    const url = 'https://whois.fdnd.nl/api/v1/members?first=999'
+
+    const data = fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        // iets gaan doen met de data
+                        // data, h1 veranderen naar naam
+                        changeHTML(data)
+
+
+                    })
+}
+
+function changeHTML (data) {
+    const name = data.members[0].name
+    var voorname
+    var achternaam
+
+    data.members.forEach(element => {
+        if(element.name == "Sundous", element.surname == "Kanaan" ){
+            voorname= element.name;
+            achternaam = element.surname;
+            naam.textContent = element.name + " " + element.surname;
+            console.log("hi")
+        }
+    });
+    
+}
+
+// function $ (element) {
+//     return document.querySelector(element)
+
+// }
+
+// function $$ (elements) {
+//     return document.querySelectorAll(elements)
+// }
+
+
+
+
+
+
+
+
+
 
 
 
