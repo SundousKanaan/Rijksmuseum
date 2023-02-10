@@ -9,7 +9,6 @@ var introSection = document.querySelector("main > section")
 var siteLink = document.querySelector("main > a")
 
 
-
 elementArray.forEach((element, index) => {
     element.addEventListener("click", (event) => {
         for(let i=0; i < selectedLi.length; i++)
