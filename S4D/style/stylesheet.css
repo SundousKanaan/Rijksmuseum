@@ -108,8 +108,8 @@ main aside::-webkit-scrollbar-thumb {
 main aside ul {
     list-style: none;
     width: fit-content;
-    height: 100%;
-    /* padding: .2em 1em; */
+    height: 150%;
+    padding: .2em 1em;
     display: flex;
     flex-direction: row;
 
@@ -123,6 +123,10 @@ main aside ul {
     
 }
 
+main aside ul::-webkit-scrollbar{
+    opacity: 0%;
+}
+
 
 
 main aside ul li {
@@ -130,7 +134,7 @@ main aside ul li {
     width: 15em;
     border-radius: 1em;
 
-    border: solid .2em black;
+    /* border: solid .2em black; */
 
     position: relative;
 }
@@ -149,8 +153,6 @@ main aside ul li button {
     border: none;
 
     cursor: pointer;
-
-    /* background-color: red; */
     z-index: 300;
 }
 
@@ -199,8 +201,6 @@ main > section {
     grid-column-end: -1;
 
     grid-row-start: 2;
-
-    /* background-color: red; */
     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(138, 138, 138, 1) 100%);
 
     display: grid;
@@ -223,14 +223,16 @@ main > a {
     border-radius: 2em;
     position: absolute;
     bottom: 1em;
-    right: -5em;
+    right: .5em;
 
     text-align: center;
     transition: 2s;
+
+    transform: translateX(calc(100% + 1em));
 }
 
 main>a.move {
-    right: 1em;
+    transform: translateX(0);
 }
 
 main>a:hover {
@@ -295,7 +297,7 @@ main>iframe {
         grid-row-end: 3;
 
         grid-template-columns: .5fr 1fr;
-        grid-template-rows: repeat(2, 100vh);
+        grid-template-rows: 3em repeat(2, 100vh);
     }
 
     main aside {
@@ -303,12 +305,14 @@ main>iframe {
         grid-column-end: 2;
 
         grid-row-start: 1;
-        /* grid-row-end: 2; */
+        grid-row-end: 3;
 
         border: none;
 
         overflow-y:auto;
         overflow-x: hidden;
+
+        /* display: none; */
     }
 
     main aside ul {
@@ -330,11 +334,10 @@ main>iframe {
         width: 48%;
     }
 
-    main>section {
+    main > section {
         grid-column-start: 2;
-        grid-column-end: -1;
-
-        grid-row-start: 1;
+        grid-row-start: 2;
+        grid-row-end: 3;
     }
 
     main aside a {
@@ -344,10 +347,11 @@ main>iframe {
         transform: rotate(0deg);
     }
 
-    main>iframe {
-        padding-top: 4em;
-
+    main > iframe {
         grid-column-start: 2;
-        grid-column-end: -1;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        width: 100%;
+        height: 100%;
     }
 }

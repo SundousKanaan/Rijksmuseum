@@ -1,42 +1,30 @@
 var iframeButtons = document.querySelectorAll("main aside ul li button")
-var selectedLi = document.querySelector("main aside ul li")
-var kleinIframe = document.querySelector("main aside ul li iframe")
+var elementArray = Array.from(iframeButtons); 
+//var elementArray = Array.from(iframeButtons); = var iframeButtons = [...document.querySelectorAll("main aside ul li button")];
+
+var selectedLi = document.querySelectorAll("main aside ul li")
+var kleinIframe = document.querySelectorAll("main aside ul li iframe")
 var groterIframe = document.querySelector("main > iframe")
 var introSection = document.querySelector("main > section")
 var siteLink = document.querySelector("main > a")
 
 
-for (let i = 0; i < iframeButtons.length; i++) {
-    iframeButtons[i].addEventListener("click", get);
-}
 
+elementArray.forEach((element, index) => {
+    element.addEventListener("click", (event) => {
+        for(let i=0; i < selectedLi.length; i++)
+        if(selectedLi[i].classList.contains("open")){
+            selectedLi[i].classList.remove("open");
+        }
 
-function get() {
-    //     /* de button waarop geklikt is in de variabele 'clickebutton' opslaan */
-    //     // let clickebutton = event.target;
-
-    //     // clickebutton = clickebutton.closest("li");
-
-    //     // groterIframe.src = "";
-
-    // if(selectedLi.classList.contains("open")){
-    // selectedLi.classList.remove("open");
-    // }
-
-    for (let i = 0; i < iframeButtons.length ; i++) {
-
-        groterIframe.src = kleinIframe.src;
-        introSection.remove();
-        siteLink.href = kleinIframe.src;
+        kleinIframe[index].src;
+        var iframe
+        iframe = element.parentNode.lastElementChild;
+        groterIframe.src = iframe.src;
+        siteLink.href = iframe.src;
         siteLink.classList.add("move");
-        selectedLi.classList.add("open");
+        iframe.parentNode.classList.add("open");
 
-        console.log(kleinIframe.src);
-    }
-
-    // evt.target.src = kleinIframe.src
-
-    /* de class liked aan de fish toevoegen */
-    /* en weer verwijderen als er nog een keer geklikt wordt */
-    // dekaart.classList.toggle("liked");
-}
+        console.log(iframe);
+    });
+});
