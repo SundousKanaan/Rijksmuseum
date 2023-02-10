@@ -5,7 +5,7 @@ var span = document.querySelector("body > span");
 
 naam.addEventListener("click", naarkaart);
 
-function naarkaart () {
+function naarkaart() {
     cover.classList.add("naarkaart");
     cover.classList.remove("naarcover");
     span.classList.add("naarkaart");
@@ -15,7 +15,7 @@ function naarkaart () {
 
 span.addEventListener("click", naarcover);
 
-function naarcover () {
+function naarcover() {
     cover.classList.remove("naarkaart");
     cover.classList.add("naarcover");
     span.classList.remove("naarkaart");
@@ -38,34 +38,35 @@ fetchData()
 
 
 // functions
-function fetchData (){
-    const url = 'https://whois.fdnd.nl/api/v1/members?first=999'
+async function fetchData() {
+
+    const url = 'https://whois.fdnd.nl/api/v1/members?first=100&skip=100'
 
     const data = fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        // iets gaan doen met de data
-                        // data, h1 veranderen naar naam
-                        changeHTML(data)
-
-
-                    })
+        .then(response => response.json())
+        .then(data => {
+            // iets gaan doen met de data
+            // data, h1 veranderen naar naam
+            changeHTML(data)
+        })
 }
 
-function changeHTML (data) {
+function changeHTML(data) {
+
     const name = data.members[0].name
     var voorname
     var achternaam
 
     data.members.forEach(element => {
-        if(element.name == "Sundous", element.surname == "Kanaan" ){
-            voorname= element.name;
+        if (element.name == "Sundous", element.surname == "Kanaan") {
+            voorname = element.name;
             achternaam = element.surname;
             naam.textContent = element.name + " " + element.surname;
-            console.log("hi")
         }
+        console.log("bay")
+
     });
-    
+
 }
 
 // function $ (element) {
