@@ -1,18 +1,20 @@
-# Web App From Scratch @cmda-minor-web 2021 - 2022
+# Web App From Scratch @cmda-minor-web 2022 - 2023
 
-In this course you will learn to build a web application without frameworks or unnecessary libraries, but with vanilla HTML, CSS & JavaScript as much as possible. The end result is a modular, single page web app (SPA). Data will be retrieved from an external API, manipulated and finally shown in the UI of the App. You will learn to apply interface principles when building and testing the interface. With the gained knowledge you will be able to build interactive prototypes, based on a user story and real data. Also you will gain a better understanding of how API's, frameworks and libraries work.
+In deze cursus leer ik een webapplicatie te bouwen zonder frameworks of overbodige bibliotheken, maar zo veel mogelijk met pure HTML, CSS & JavaScript. Het eindresultaat is een modulaire, enkelpagina webapp (SPA) die ik zal creëren. Ik zal data op halen van een externe API, deze bewerken en uiteindelijk tonen in de gebruikersinterface van de app. Ik zal leren hoe ik interfaceprincipes toepas bij het bouwen en testen van de interface. Met de verworven kennis kan ik interactieve prototypes bouwen op basis van een gebruikersverhaal en echte data. Ik krijg ook een beter begrip van hoe API's, frameworks en bibliotheken werken.
 
 ## Opdrachten
 **De opdrachten:** 
   - [visitekaartje](visitekaartje/index.html)
   - [S4D](S4D/index.html)
-  - [User-story](User-story/index.html)
 
-## Assignment
+## Mijn gekozen opdracht:
+  Mijn user story
+   <br> As an art lover, I want to be able to search and view art from the Rijksmuseum at home, so that I can still enjoy art during a lockdown.
+   <br> Mijn opdracht is om de Rijksmuseum API te gebruiken om de data van de schilderijen en de kunstenaars op te halen en daarmee een app te creëren.
+   - [Rijksmuseum](https://github.com/cmda-minor-web/web-app-from-scratch-2223/blob/main/course/rijksmuseum.md)
+   - [Mijn User story](User-story/index.html)
 
-1. [Visitekaartje](https://github.com/cmda-minor-web/web-app-from-scratch-2223/blob/main/course/week-1.md#1-visitekaartje): Ontwerp en maak met HTML, CSS en JS een visitekaartje.
-2. [Squadpagina](https://github.com/cmda-minor-web/web-app-from-scratch-2223/blob/main/course/week-1.md#2-squadpagina): Ontwerp en maak met je team een squadpagina waarin je de verschillende visitekaartjes toont.
-3. [Single Page App](https://github.com/cmda-minor-web/web-app-from-scratch-2223/blob/master/course/week-2.md): Design and build a single page web app based on a User Story.
+## Eerste schets:
 
 ---
 
