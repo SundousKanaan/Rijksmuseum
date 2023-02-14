@@ -1,21 +1,54 @@
 const API_KEY = 'BI5yOkPW';
 const API_URL = `https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}`;
+// const API_URL = `https://www.rijksmuseum.nl/api/nl/collection?key=BI5yOkPW&ps=100.objectTypes=schilderij`;
 
-fetch(API_URL)
+async function fetchData (){
+  const data = fetch(API_URL)
   .then(response => response.json())
   .then(data => {
     const artObjectsCount = data.artObjects.length;
-    const image =  data.artObjects[0].id;
-    console.log(image);
-    console.log(`There are ${artObjectsCount} artObjects in the Rijksmuseum API.`);
-  })
-//   .catch(error => console.error(error));
 
-// fetch(API_URL)
-//   .then(response => response.json())
-//   .then(data => {
-//     const artworks = data.artObjects.slice(0, 10);
-//     artworks.forEach(artwork => {
-//       console.log(artwork.title, artwork.webImage.url);
-//     });
-//   })
+    console.log(artObjectsCount);
+
+    APIdata(data);
+  })
+}
+
+
+
+function APIdata(data){
+  const top5ArtObjects = data.artObjects.slice(0, 5);
+  const imageURLs = top5ArtObjects.map(artObject => artObject.webImage.url);
+    console.log(imageURLs);    
+    const listElement = document.createElement('ul');
+
+    imageURLs.forEach((imageURL) => {
+      
+    const itemElement = document.createElement('li');
+    const imageElement = document.createElement('img');
+
+      imageElement.src = imageURL;
+      itemElement.appendChild(imageElement);
+      listElement.appendChild(itemElement);
+    
+    const headerElement = document.querySelector('header');
+    headerElement.appendChild(listElement);
+  });
+
+  console.log(listElement);
+
+}
+
+
+
+fetchData();
+
+
+
+
+
+  // const top100ArtObjects = data.artObjects.slice(0, 100);
+  // const filteredArtObjects = top100ArtObjects.filter(artObject => artObject.objectType === 'schilderij');
+  // const imageURLs = filteredArtObjects.map(artObject => artObject.webImage.url);
+  // console.log(top100ArtObjects);
+
