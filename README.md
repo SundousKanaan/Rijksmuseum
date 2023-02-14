@@ -12,7 +12,7 @@ In deze cursus leer ik een webapplicatie te bouwen zonder frameworks of overbodi
    <br> As an art lover, I want to be able to search and view art from the Rijksmuseum at home, so that I can still enjoy art during a lockdown.
    <br> Mijn opdracht is om de Rijksmuseum API te gebruiken om de data van de schilderijen en de kunstenaars op te halen en daarmee een app te creëren.
    - [Rijksmuseum](https://github.com/cmda-minor-web/web-app-from-scratch-2223/blob/main/course/rijksmuseum.md)
-   - [Mijn User story](UserStory/index.html)
+   - [Mijn User story](userstory/index.html)
 
 ## Eerste schets:
 
