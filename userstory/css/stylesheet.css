@@ -14,13 +14,15 @@
 
     --licht-black: rgba(138, 138, 138, 0.452);
 
-    --button-width: 1.5em;
+    --button-width: 2.5em;
 }
 
 
 button {
     background: none;
     border: none;
+
+    border-radius: 5em;
 }
 
 body {
@@ -41,7 +43,7 @@ header {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 80% 20%;
-    gap: 1em;
+    gap: .5em;
     justify-items: center;
 
     /* background-color: var(--theme); */
@@ -58,12 +60,12 @@ header h1 {
 
 header>p {
     font-size: 1.5em;
+    grid-area: 2/1/3/2;
+
     width: 80%;
 
     text-align: center;
     color: var(--fontcolor);
-    position: absolute;
-    bottom: 5.3em;
 
     z-index: 2;
 }
@@ -76,8 +78,8 @@ header h1 img {
 }
 
 header>a:first-of-type {
-    width: calc(var(--button-width)*1.5);
-    height: calc(var(--button-width)*1.5);
+    width: var(--button-width);
+    height: var(--button-width);
     position: absolute;
     top: 1em;
     right: 1.5rem;
@@ -94,12 +96,12 @@ header>a:first-of-type {
 }
 
 header>a:last-of-type {
-    width: calc(var(--button-width)*2);
-    height: calc(var(--button-width)*2);
+    width: var(--button-width);
+    height: var(--button-width);
     border-radius: 5em;
 
     position: absolute;
-    bottom: 3rem;
+    bottom: 5rem;
     top: auto;
     left: calc(50% - var(--button-width)/2);
 
@@ -114,7 +116,6 @@ header>a:last-of-type {
 
 header>a:hover {
     transform: rotateY(360deg) scale(1.3);
-
 }
 
 @keyframes flow {
@@ -237,9 +238,288 @@ header ul li img {
 
 
 
+
+
+
+
+
+
+
+/* ****************************** */
+/* ****************************** */
+/* ****************************** */
+
+
+/* ************  main  ********** */
+
+
+/* ****************************** */
+/* ****************************** */
+/* ****************************** */
+
+
 main {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
+
+    padding-top: .5em;
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 2.5em 1em;
+    gap: 1em;
+    justify-items: center;
 
     background-color: var(--subcolor);
+
+    position: relative;
+}
+
+main form{
+    grid-area: 1/1/2/2;
+
+    display: grid;
+    justify-items: center;
+
+    width: 90%;
+    position: relative;
+}
+
+main form input{
+    width: 100%;
+    height: 100%;
+
+    grid-area: 1/1/2/2;
+
+    border: none;
+    border-radius: 5em;
+    text-indent: 2em;
+}
+
+main form button{
+    width: var(--button-width);
+    height: var(--button-width);
+
+    position: absolute;
+    right: .4em;
+    top: calc(50% - var(--button-width)/2 );
+
+    background-color: var(--licht-black);
+
+    display: grid;
+
+    cursor: pointer;
+}
+
+main form button svg{
+    display: block;
+    width: 80% ;
+    align-self: center;
+    justify-self: center;
+
+    transition: 1s;
+}
+
+main form button:hover svg{
+    transform: rotateY(360deg);
+}
+
+main > h2 {
+    font-size: 1em;
+    width: 100%;
+    height: 100%;
+    height: fit-content;
+    text-indent: 2em;
+
+    grid-area: 2/1/3/2;
+}
+
+
+main > ul{
+    list-style: none;
+    /* grid-area: 3/1/4/2; */
+    width: 100%;
+
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 1em;
+}
+
+main > section:first-of-type ul li,
+main > ul li{
+    --size: 10.5rem;
+    width: var(--size);
+    height: var(--size) ;
+    z-index: 2;
+    border-radius: 6em;
+    min-width: 11em;
+}
+
+main > section:first-of-type ul li{
+    --size: 11em;
+
+}
+
+main > section:first-of-type ul li button,
+main > ul li button{
+    width: 100%;
+    height: 100%;
+    background:none;
+    border: none;
+
+    position: relative;
+    grid-template: 1fr 1fr / 1fr;
+    border-radius: 6em;
+    
+    overflow: hidden;
+}
+
+main > section:first-of-type ul li button section,
+main > ul li button section{
+    width: inherit;
+    height: inherit;
+    
+    position: absolute;
+    bottom: -50%;
+    opacity: 100%;
+    transition: 1s;
+    z-index: 0;
+
+    border-radius: 6em;
+
+    background-color: var(--licht-black);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+main > section:first-of-type ul li button  section h3,
+main > ul li button section h3{
+    font-size: 1em;
+    color: var(--fontcolor);
+    width: 80%;
+    height: fit-content;
+    text-align: center;
+
+    position: relative;
+    top: -12%;
+}
+
+main > section:first-of-type ul li button section span,
+main > ul li button  section span{
+    --size: 30%;
+    width: var(--size);
+    height: var(--size);
+
+    border-radius: 5em;
+
+    position: relative;
+    top:calc(-1 * var(--size)/2);
+    order: -1;
+
+    border: solid .1em var(--licht-black);
+    overflow: hidden;
+}
+
+
+main > section:first-of-type ul li button section span img,
+main > ul li button section span img{
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (min-width: 768px ){
+    main > section:first-of-type ul li button section,
+    main > ul li button section{
+        bottom: -150%;
+        opacity: 0;
+    }
+
+    main > section:first-of-type ul li:hover button:hover section,
+    main > ul li button:hover section{
+        transform: translateY(-100%);
+        opacity: 100%;
+    }
+}
+
+main > section:first-of-type ul li button > img,
+main ul li button > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+
+/* *********** */
+/* ** top10 ** */
+/* *********** */
+
+main > section:first-of-type {
+    width: 100vw;
+    height: fit-content;
+    overflow: hidden;
+    padding-left: 1em;
+}
+
+main > section:first-of-type h2{
+    font-size: 1em;
+    height: 2em;
+} 
+
+main > section:first-of-type ul{
+    height: 11em;
+    width: 100%;
+    list-style: none;
+
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap;
+    gap: 1em;
+
+    overflow-x: scroll;
+    /* overflow-x: auto; */
+    overflow-y: hidden;
+    overscroll-behavior: contain;
+    scroll-snap-type: x mandatory;
+
+
+}
+
+main > section:first-of-type ul::-webkit-scrollbar{
+    display: none;
+}
+
+main > section:first-of-type ul li{
+    scroll-snap-align: start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+main > p:last-child{
+    position: absolute;
+    bottom: 0;
+
+    font-size: .8em;
+
+    height: 2em;
 }
