@@ -14,6 +14,8 @@ In deze cursus leer ik een webapplicatie te bouwen zonder frameworks of overbodi
    <br> Mijn opdracht is om de Rijksmuseum API te gebruiken om de data van de schilderijen en de kunstenaars op te halen en daarmee een app te creëren.
    - [Rijksmuseum](https://github.com/cmda-minor-web/web-app-from-scratch-2223/blob/main/course/rijksmuseum.md)
    - [Mijn User story](userstory/index.html)
+   
+   - [Procesdocument](https://github.com/SundousKanaan/web-app-from-scratch-2223/wiki)
 
 ## Eerste schets:
 
