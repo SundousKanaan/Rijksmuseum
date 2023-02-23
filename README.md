@@ -6,6 +6,7 @@ In deze cursus leer ik een webapplicatie te bouwen zonder frameworks of overbodi
 **De opdrachten:** 
   - [visitekaartje](visitekaartje/index.html)
   - [S4D](S4D/index.html)
+  - [userstory](userstory/index.html)
 
 ## Mijn gekozen opdracht:
   Mijn user story
