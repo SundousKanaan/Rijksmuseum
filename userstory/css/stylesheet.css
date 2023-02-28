@@ -13,14 +13,18 @@ html {
 }
 
 :root {
+    --font-family: 'Golos Text', sans-serif;
     --fontcolor: rgb(236, 236, 236);
     --dark-fontcolor: black;
+    --thema-fontcolor: rgb(255, 123, 0);
+    --thema-color: rgb(252, 252, 252);
+    --licht-background: rgba(0, 0, 0, 0.247);
 
     --schadow: rgba(236, 236, 236, 80%);
     --white-schadow: rgba(226, 226, 226, 0.219);
 
     --input-text: rgb(49, 49, 49);
-    --details-background: transparent 0%, black 20%;
+    --details-background: transparent, rgba(0, 0, 0, 0.664) 20%, black 60%;
     --titel-background: rgba(0, 0, 0, 0.591);
 
 
@@ -44,6 +48,7 @@ button {
 }
 
 body {
+    font-family: var(--font-family);
     width: 100vw;
     height: 100dvh;
     height: 100vh;
@@ -52,6 +57,7 @@ body {
 
     background-image: linear-gradient(var(--linear-gradient));
 }
+
 
 body>div {
     width: 100vw;
@@ -105,18 +111,17 @@ body>div::after {
 }
 
 /* body:not(body > div.display){
-    overflow-y: scroll;
-} */
-
-
-body:has(body > div.display) {
     overflow-y: visible;
-}
+} */
 
 body>div.display,
 body>div.display::after,
 body>div.display img {
     display: block;
+}
+
+body:has(body > div.display) {
+    overflow-y:hidden;
 }
 
 
@@ -548,9 +553,9 @@ main>ul li a div {
     height: 100%;
 
     position: absolute;
-    bottom: -50%;
+    /* bottom: -55%; */
     opacity: 100%;
-    transition: 1s;
+    transition: .3s;
     z-index: 1;
 
     border-radius: 6em;
@@ -559,26 +564,26 @@ main>ul li a div {
 
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 
 main>section:first-of-type ul li a div h3,
 main>ul li a div h3 {
-    font-size: .9em;
+    font-size: 1em;
     color: var(--fontcolor);
-    width: 80%;
+    width: 90%;
     height: fit-content;
     text-align: center;
-
-    position: relative;
-    top: 15%;
+    line-height: 1.5em;
+    font-weight: lighter;
 }
 
 @media (min-width: 768px) {
 
     main>section:first-of-type ul li a div,
     main>ul li a div {
-        bottom: -150%;
+        bottom: -100%;
         opacity: 0;
     }
 
@@ -607,6 +612,7 @@ main ul li a>img {
 
 main>section:first-of-type {
     width: 100vw;
+    /* max-width: 80vw; */
     height: fit-content;
     /* overflow: hidden; */
     padding-left: 1em;
@@ -699,22 +705,25 @@ main>section:first-of-type ul li {
 
 body>article {
     width: 100%;
+    height: fit-content;
 
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
 
-    z-index: 100000000000;
+    z-index: 200;
+
+    /* grid-row: 1/3; */
+
+    /* background-color: red; */
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 4em 55vh 100% auto;
-
-    display: none;
+    grid-template-rows: 3.5em 40vh 30em auto;
 }
 
-body>article>button:first-of-type {
+body>article>button {
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -726,22 +735,23 @@ body>article>button:first-of-type {
 
 }
 
-body>article>button:first-of-type img {
+body>article>button img {
     height: 100%;
     width: 100%;
 
     display: block;
     object-fit: cover;
-    object-position: center center;
+    object-position: center;
     transition: 1s;
+
+    grid-area: 1/1/3/-1;
 }
 
-/* body>article>button:first-of-type:hover img {
+body>article>button:first-of-type:hover img {
     transform: scale(1.1);
-} */
+}
 
-body>article>button:first-of-type.openimg{
-    /* background-image: linear-gradient(var(--linear-gradient)); */
+/* body>article>button.openimg{
     background-color: red;
     height: 100vh;
 
@@ -751,41 +761,51 @@ body>article>button:first-of-type.openimg{
     z-index: 1000000000;
 }
 
-body>article>button:first-of-type.openimg img{
+body>article>button.openimg img{
 
     width: 100%;
     height: auto;
-}
+} */
 
-body>article>button:nth-of-type(2) {
+body>article>a {
     width: var(--button-width);
     height: var(--button-width);
+    display: block;
+
     background-color: var(--schadow);
+    /* background-color: aqua; */
 
-    grid-area: 1/1/2/-1;
+    grid-row: 1/2;
+    border-radius: 50%;
 
-    position: relative;
+    position: absolute;
     left: .5em;
     top: .5em;
     z-index: inherit;
+
+    cursor: pointer;
 }
 
-body>article>button:nth-of-type(2) svg {
+body>article>a svg {
+    width: 100%;
     transform: rotate(90deg) scale(.9);
     filter: var(--no-brightness);
-
+    transition: .3s;
 }
 
+body>article>a:hover svg {
+    transform: rotate(90deg) scale(1.1);
+}
 
 body>article>section {
     width: 100%;
     height: 100%;
-    grid-area: 3/1;
+    grid-row: 3;
+    grid-column: 1/2;
 
     color: var(--fontcolor);
 
-    border-radius: 50% 50% 0% 0% / 40% 40% 0% 0%;
-    padding: 4em 2em;
+    padding: 4em 10vw;
 
     position: relative;
     z-index: 2000;
@@ -798,34 +818,68 @@ body>article>section {
     overflow: hidden;
 }
 
+@media screen and (min-width: 1000px) {
+    body>article>section {
+        padding: 0 18vw 5vh 18vw;
+    }
+}
+
 body>article>section div h2,
 body>article>section h3,
-body>article>section p{
-    width: 100%;
+body>article>section p {
+    width: fit-content;
 }
 
-body>article>section div{
-    text-align: center;
+body>article>section div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 9em;
-    margin-bottom: 1em;
 
+    margin-bottom: 2em;
 }
 
-body>article>section div h2{
-    font-size: 2rem;
+body>article>section div p {
+    color: var(--thema-fontcolor);
+    padding: .5em;
+    background-color: var(--licht-background);
+    border: solid .3em var(--thema-color);
 }
 
 body>article>section div h2,
-body>article>section h3{
+body>article>section h3 {
     margin-bottom: .5em;
+}
+
+body>article>section h3 {
+    font-size: 2rem;
+    margin-bottom: .5em;
+}
+
+body>article>section>p {
+    line-height: 1.5em;
+}
+
+@media screen and (min-width: 1000px) {
+    body>article>section>p {
+        font-size: 1.2em;
+        line-height: 1.5em;
+    }
+}
+
+body>article>section>p::first-letter {
+    color: var(--thema-fontcolor);
+    font-size: 4em;
+    font-weight: bolder;
+    line-height: .5em;
+    margin-right: .1em;
+    float: left;
 }
 
 /* body>article>section h3,
 body>article>section > p{
     text-indent: 10rem;
 } */
-
-
 
 
 
