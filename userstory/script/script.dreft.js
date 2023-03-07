@@ -30,13 +30,6 @@ async function fetchData() {
       const artObjectsCount = data.artObjects.length;
       console.log("data artObjects length is", artObjectsCount, data.artObjects);
 
-      // erray van mijn elementen
-      // const artObjectsErray = data.artObjects.map(artObject => 
-      //   [(artObject.title) , (artObject.id) , (artObject.webImage.url) , (artObject.principalOrFirstMaker) , (artObject.longTitle)]);
-
-      //   console.log(artObjectsErray.slice(0,3));
-      // console.log(artObjectsErray);
-
       const API_schilderijen_URL = `https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}&ps=100&&type=schilderij`;
       fetch(API_schilderijen_URL)
         .then(response => response.json())

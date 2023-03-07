@@ -1,10 +1,13 @@
-import { fetch_objectDetails } from "./fetch.js";
-import {  displayLoading } from "./display.js"
-
+import { fetchData, fetchObjectDetails, fetchZoekURL } from "./fetch.js";
+import { displayLoading } from "./display.js";
+import { API_KEY,API_URL, type, artist, title } from './variables.js';
+import { searchResultaten } from "./searchData.js";
 
 export async function headerfotos(data) {
+    const API_URL = `https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}&ps=100&&type=schilderij&imgonly=true`;
+    var data = await fetchData(API_URL, API_KEY);
     const top5ArtObjects = data.artObjects.slice(0, 5);
-
+    
     const imageURLs = top5ArtObjects.map(artObject => artObject.webImage.url);
     const listElement = document.createElement('ul');
 
@@ -13,7 +16,6 @@ export async function headerfotos(data) {
         const imageElement = document.createElement('img');
 
         imageElement.src = imageURL; //img
-
 
         itemElement.appendChild(imageElement); //li
         listElement.appendChild(itemElement); //ul
@@ -31,23 +33,22 @@ export async function headerfotos(data) {
             headerimgs[i].alt = imagetitel;
         }
     })
-
-    // .catch((err) => { console.error('Error:', err)});
 }
 
+headerfotos();
 
-export function TOP10(data) {
+
+export async function TOP10(data) {
+    var data = await fetchData(API_URL, API_KEY);
     const top10ArtObjects = data.artObjects.slice(0, 10);
     const imageURLs = top10ArtObjects.map(artObject => artObject.webImage.url);
     const makernaamen = top10ArtObjects.map(artObject => artObject.principalOrFirstMaker);
     const imageTitels = top10ArtObjects.map(artObject => artObject.title);
-    const objectsID = data.artObjects.map(artObject => artObject.id);
     const objectNumber = data.artObjects.map(artObject => artObject.objectNumber);
 
 
     let array = imageURLs.map((item, index) => {
         return {
-            "id": objectsID[index],
             "image": imageURLs[index],
             "name": makernaamen[index],
             "title": imageTitels[index],
@@ -85,22 +86,25 @@ export function TOP10(data) {
 
     const Top10section = document.querySelector('main > section:first-of-type');
     Top10section.appendChild(listElement);
+
+    // console.log("top10 function aan het werken");
 }
 
+TOP10();
 
-var article = document.querySelector('body>article');
+
+
+
+let article = document.querySelector('body>article');
 
 export async function get_details(objectNumber) {
 
-    // displayLoading();
-    console.log("get data for obj" + objectNumber)
-    const obj_data = await fetch_objectDetails(objectNumber)
+    const obj_data = await fetchObjectDetails(objectNumber)
 
-    console.log(obj_data)
-    console.log("done fetch obj data", obj_data.artObject)
+    // console.log("done fetch obj data", obj_data.artObject)
 
-    var objDetails = obj_data.artObject;
-    var description = objDetails.description;
+    let objDetails = obj_data.artObject;
+    let description = objDetails.description;
     if (description === null) {
         description = "Er is momenteel geen beschrijving beschikbaar voor dit werk, informatie zal worden bijgewerkt zodra deze beschikbaar is.";
     }
@@ -110,12 +114,10 @@ export async function get_details(objectNumber) {
 
     article.innerHTML =
     `
-           <button>
-            <img src="${objDetails.webImage.url}"
-                alt="${objDetails.longTitle}">
-            </button>
-
-        <a herf="#object/">
+           <button></button>
+           <img src="${objDetails.webImage.url}"
+           alt="${objDetails.longTitle}">
+        <a herf=":history.go(-1)">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -151,7 +153,97 @@ export async function get_details(objectNumber) {
    `
 
     return article;
+
 }
+
+
+export async function getZoekenData(searchQuery){
+    var Alldata = await fetchData(API_URL, API_KEY);
+    // Array maken van alle makers namen en een Array van alle titles
+    var AllMakersArray = Alldata.artObjects.map(artObject => artObject.principalOrFirstMaker)
+    var AllTitlesArray = Alldata.artObjects.map(artObject => artObject.title)
+
+    // Maak een nieuwe arrays zonder herhalen in
+    var makersArray = [...new Set(AllMakersArray)];
+    var titlesArray = [...new Set(AllTitlesArray)];
+
+    var zoeken = '';
+
+    if(makersArray.findIndex(element =>element.includes(searchQuery))){
+        zoeken = 'involvedMaker=' + searchQuery;
+        var data = await fetchZoekURL(API_URL,zoeken);
+        console.log("hoy" , data.artObjects);
+        searchResultaten(data);
+    }
+
+    else if(titlesArray.findIndex(element => element.includes(searchQuery))){
+        zoeken = 'title=' + searchQuery;
+        var data = await fetchZoekURL(API_URL,zoeken);
+    }
+
+    else{
+        console.log("none");
+    }
+
+}
+
+// getZoekenData("anoniem");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

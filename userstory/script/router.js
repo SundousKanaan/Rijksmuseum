@@ -1,14 +1,15 @@
 import './routie/routie.js';
-import { fetchData, fetchArtErrayData, fetch_objectDetails } from './modules/fetch.js';
-import { displayLoading, hideLoading } from './modules/display.js';
+import { fetchData, fetchObjectDetails } from './modules/fetch.js';
+// import { displayLoading, hideLoading } from './modules/display.js';
 import { get_details } from './modules/data.js';
-import { API_URL, id, API_KEY, type, artist, title , objectNumber} from './modules/variables.js'
+import { API_URL, API_KEY, type, artist, title , objectNumber} from './modules/variables.js'
 
 
 
 
 export async function onRouteChanged(data) {
     routie({
+        
 
         'object/:objectNumber': async function (objectNumber) {
             var item_details = get_details(objectNumber);
@@ -17,7 +18,7 @@ export async function onRouteChanged(data) {
     })
 }
 
-const sdata = await fetchData(API_URL, API_KEY, id, type, artist, title);
+const sdata = await fetchData(API_URL, API_KEY, type, artist, title);
 
 
 

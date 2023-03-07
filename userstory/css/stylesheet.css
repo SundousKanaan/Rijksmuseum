@@ -13,14 +13,18 @@ html {
 }
 
 :root {
+    --font-family: 'Golos Text', sans-serif;
     --fontcolor: rgb(236, 236, 236);
     --dark-fontcolor: black;
+    --thema-fontcolor: rgb(255, 123, 0);
+    --thema-color: rgb(252, 252, 252);
+    --licht-background: rgba(0, 0, 0, 0.247);
 
     --schadow: rgba(236, 236, 236, 80%);
     --white-schadow: rgba(226, 226, 226, 0.219);
 
     --input-text: rgb(49, 49, 49);
-    --details-background: transparent 0%, black 20%;
+    --details-background: transparent, rgba(0, 0, 0, 0.664) 20%, black 60%;
     --titel-background: rgba(0, 0, 0, 0.591);
 
 
@@ -40,17 +44,23 @@ button {
     background: none;
     border: none;
 
-    border-radius: 5em;
+    border-radius: 50%;
 }
 
 body {
+    font-family: var(--font-family);
     width: 100vw;
     height: 100dvh;
     height: 100vh;
     position: relative;
     overflow-x: hidden;
+    overflow-y: auto;
 
     background-image: linear-gradient(var(--linear-gradient));
+}
+
+body.hidden{
+    overflow-y: hidden;
 }
 
 
@@ -106,18 +116,17 @@ body>div::after {
 }
 
 /* body:not(body > div.display){
-    overflow-y: scroll;
-} */
-
-
-body:has(body > div.display) {
     overflow-y: visible;
-}
+} */
 
 body>div.display,
 body>div.display::after,
 body>div.display img {
     display: block;
+}
+
+body:has(body > div.display) {
+    overflow-y:hidden;
 }
 
 
@@ -295,7 +304,7 @@ header ul li {
     animation: slider 8s 2s infinite linear;
 }
 
-header ul li:nth-of-type(1) {
+header ul li:first-of-type {
     animation-delay: -2s;
 }
 
@@ -377,7 +386,8 @@ main {
     width: 100vw;
     height: 100%;
 
-    padding-top: 2em;
+    /* padding-top: 2em; */
+    padding: 2em 1em 0 1em;
 
     display: grid;
     grid-template-columns: 100%;
@@ -401,62 +411,54 @@ main::after {
 }
 
 main form {
-    grid-area: 1/1/2/2;
-
-    display: grid;
-    justify-items: center;
-
     width: 100%;
     position: relative;
 }
 
 main form label {
-    width: 80%;
+    width: 95%;
     height: 100%;
-
-    grid-area: 1/1/2/2;
+    position: relative;
 }
 
 
 main form label input[type=text] {
-    width: 100%;
+    width: inherit;
     height: 100%;
 
     border: none;
     border-radius: 5em;
     text-indent: 2em;
 
-    background-image: url(https://cdn-icons-png.flaticon.com/512/3917/3917754.png);
+    /* background-image: url(https://cdn-icons-png.flaticon.com/512/3917/3917754.png);
     background-position: right 2em center;
     background-repeat: no-repeat;
-    background-size: 2em;
+    background-size: 2em; */
 
     padding-right: 5em;
 
     color: var(--input-text);
 }
 
-/* main form > button{
+main form label button{
     width: var(--button-width);
     height: var(--button-width);
 
-    position: absolute;
-    right: .4em;
-    top: calc(50% - var(--button-width)/2 );
-
+    /* background-color: var(--white-schadow); */
     background-color: var(--white-schadow);
-
-    display: grid;
-
     cursor: pointer;
 
+    position: absolute;
+    right: 1em;
+    top: calc(50% - var(--button-width)/2);
+
     background-image: url(https://cdn-icons-png.flaticon.com/512/3917/3917754.png);
-    background-size: 50%;
+    background-size: 55%;
     background-position: center;
     background-repeat: no-repeat;
     transition: .5s;
 
-}  */
+} 
 
 /* main form > button:hover{
     background-size: 60%;
@@ -481,11 +483,12 @@ main>h2 {
 main>ul {
     list-style: none;
     width: 100%;
+    /* height: 12em; */
 
     padding: 0 1.5em 0 1em;
 
     justify-self: center;
-    display: flex;
+    display: none;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
@@ -495,7 +498,7 @@ main>ul {
 
 main>section:first-of-type ul li,
 main>ul li {
-    --size: 10.5rem;
+    --size: 10.5em;
     width: var(--size);
     height: var(--size);
     z-index: 2;
@@ -549,9 +552,9 @@ main>ul li a div {
     height: 100%;
 
     position: absolute;
-    bottom: -50%;
+    /* bottom: -55%; */
     opacity: 100%;
-    transition: 1s;
+    transition: .3s;
     z-index: 1;
 
     border-radius: 6em;
@@ -560,26 +563,26 @@ main>ul li a div {
 
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 
 main>section:first-of-type ul li a div h3,
 main>ul li a div h3 {
-    font-size: .9em;
+    font-size: 1em;
     color: var(--fontcolor);
-    width: 80%;
+    width: 90%;
     height: fit-content;
     text-align: center;
-
-    position: relative;
-    top: 15%;
+    line-height: 1.5em;
+    font-weight: lighter;
 }
 
 @media (min-width: 768px) {
 
     main>section:first-of-type ul li a div,
     main>ul li a div {
-        bottom: -150%;
+        bottom: -100%;
         opacity: 0;
     }
 
@@ -591,7 +594,7 @@ main>ul li a div h3 {
 }
 
 main>section:first-of-type ul li a>img,
-main ul li a>img {
+main ul li a img {
     width: 100%;
     height: 100%;
     display: block;
@@ -699,97 +702,123 @@ main>section:first-of-type ul li {
 
 
 
-body>article {
+article {
     width: 100%;
+    height: fit-content;
+
+    padding-bottom: 3em;
 
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
 
-    z-index: 100000000000;
+    z-index: 200;
 
-    grid-row: 1/3;
+    /* grid-row: 1/3; */
+
+    background-image: linear-gradient(var(--linear-gradient));
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 4em 55vh 100% auto;
+    grid-template-rows: 3.5em 40vh 30em auto;
 
     display: none;
 }
 
-body>article>button:first-of-type {
-    width: 100%;
-    height: 100%;
+article button {
+    display: block;
+    width: calc(var(--button-width) + .5em);
+    height: calc(var(--button-width) + .5em);
     cursor: pointer;
-    border-radius: 0;
+    border-radius: 50%;
 
-    overflow: hidden;
+    background-color: var(--schadow);
+    background-image:
+     url(https://cdn.icon-icons.com/icons2/1898/PNG/512/enlarge_121031.png);
+     background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 1;
+    /* overflow: hidden; */
 
-    grid-area: 1/1/4/-1;
+    grid-area: 1/1/1/-1;
+    justify-self: end;
+    margin: 1em 2em 0 0;
 
 }
 
-body>article>button:first-of-type img {
+article img {
     height: 100%;
     width: 100%;
 
     display: block;
     object-fit: cover;
-    object-position: center center;
+    object-position: center;
     transition: 1s;
+
+    grid-area: 1/1/4/-1;
 }
 
-/* body>article>button:first-of-type:hover img {
+article button:hover + img {
     transform: scale(1.1);
-} */
-
-body>article>button:first-of-type.openimg{
-    /* background-image: linear-gradient(var(--linear-gradient)); */
-    background-color: red;
-    height: 100vh;
-
-    display: grid;
-
-    place-content: center;
-    z-index: 1000000000;
 }
 
-body>article>button:first-of-type.openimg img{
+article section.openimg{
+    display: none;
+} 
 
+article:has(section.openimg) button:hover + img{
+    transform: scale(1);
+}
+
+article:has(section.openimg) img{
     width: 100%;
     height: auto;
-}
 
-body>article>button:nth-of-type(2) {
+    align-self: center;
+} 
+
+article>a {
     width: var(--button-width);
     height: var(--button-width);
+    display: block;
+
     background-color: var(--schadow);
+    /* background-color: aqua; */
 
-    grid-area: 1/1/2/-1;
+    grid-row: 1/2;
+    border-radius: 50%;
 
-    position: relative;
+    position: absolute;
     left: .5em;
     top: .5em;
     z-index: inherit;
+
+    cursor: pointer;
 }
 
-body>article>button:nth-of-type(2) svg {
+article>a svg {
+    width: 100%;
     transform: rotate(90deg) scale(.9);
     filter: var(--no-brightness);
-
+    transition: .3s;
 }
 
+article>a:hover svg {
+    transform: rotate(90deg) scale(1.1);
+}
 
-body>article>section {
+article>section {
     width: 100%;
-    height: 100%;
-    grid-area: 3/1;
+    height: fit-content;
+    grid-row: 3;
+    grid-column: 1/2;
 
     color: var(--fontcolor);
 
-    border-radius: 50% 50% 0% 0% / 40% 40% 0% 0%;
-    padding: 4em 2em;
+    padding: 4em 10vw;
 
     position: relative;
     z-index: 2000;
@@ -802,34 +831,69 @@ body>article>section {
     overflow: hidden;
 }
 
-body>article>section div h2,
-body>article>section h3,
-body>article>section p{
-    width: 100%;
+@media screen and (min-width: 1000px) {
+    article>section {
+        padding: 0 18vw 5vh 18vw;
+    }
 }
 
-body>article>section div{
-    text-align: center;
+article>section div h2,
+article>section h3,
+article>section p {
+    width: fit-content;
+}
+
+article>section div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 9em;
-    margin-bottom: 1em;
 
+    margin-bottom: 2em;
 }
 
-body>article>section div h2{
-    font-size: 2rem;
+article>section div p {
+    color: var(--thema-fontcolor);
+    padding: .5em;
+    background-color: var(--licht-background);
+    border: solid .3em var(--thema-color);
+    border-radius: 50em;
 }
 
-body>article>section div h2,
-body>article>section h3{
+article>section div h2,
+article>section h3 {
     margin-bottom: .5em;
 }
 
-/* body>article>section h3,
-body>article>section > p{
+article>section h3 {
+    font-size: 2rem;
+    margin-bottom: .5em;
+}
+
+article>section>p {
+    line-height: 1.5em;
+}
+
+@media screen and (min-width: 1000px) {
+    article>section>p {
+        font-size: 1.2em;
+        line-height: 1.5em;
+    }
+}
+
+article>section>p::first-letter {
+    color: var(--thema-fontcolor);
+    font-size: 4em;
+    font-weight: bolder;
+    line-height: .5em;
+    margin-right: .1em;
+    float: left;
+}
+
+/* article>section h3,
+article>section > p{
     text-indent: 10rem;
 } */
-
-
 
 
 
