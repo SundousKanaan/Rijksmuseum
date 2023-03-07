@@ -9,7 +9,13 @@ import { API_URL, API_KEY, type, artist, title , objectNumber} from './modules/v
 
 export async function onRouteChanged(data) {
     routie({
-        
+        'object/#object ': function (){
+            console.log('kaas')
+            let article = document.querySelector('body>article');
+            article.innerHTML='';
+            article.style.display = "none";
+        }
+        ,
 
         'object/:objectNumber': async function (objectNumber) {
             var item_details = get_details(objectNumber);

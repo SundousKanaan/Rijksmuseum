@@ -47,6 +47,57 @@ button {
     border-radius: 50%;
 }
 
+.loading{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+    display: grid;
+    place-content: center;
+    column-gap: 1em;
+}
+
+.loading span{
+    width: .5rem;
+    aspect-ratio: 1/1;
+    display: block;
+    border-radius: 50%;
+    background-color: var(--fontcolor);
+
+    grid-row: 1/2;
+
+    transform-origin: 50% 150%;
+    animation: loadingResultaten 1s linear infinite both;
+}
+
+.loading span:nth-of-type(2){
+    animation-delay: .25s;
+}
+
+.loading span:nth-of-type(3){
+    animation-delay: .5s;
+}
+
+@keyframes loadingResultaten{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 50%;;
+    }
+    100%{
+        opacity: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
 body {
     font-family: var(--font-family);
     width: 100vw;
@@ -62,7 +113,6 @@ body {
 body.hidden{
     overflow-y: hidden;
 }
-
 
 body>div {
     width: 100vw;
@@ -115,10 +165,6 @@ body>div::after {
     }
 }
 
-/* body:not(body > div.display){
-    overflow-y: visible;
-} */
-
 body>div.display,
 body>div.display::after,
 body>div.display img {
@@ -128,7 +174,6 @@ body>div.display img {
 body:has(body > div.display) {
     overflow-y:hidden;
 }
-
 
 
 
@@ -411,14 +456,16 @@ main::after {
 }
 
 main form {
-    width: 100%;
+    width: 100vw;
     position: relative;
 }
 
 main form label {
     width: 95%;
-    height: 100%;
+    height: 2.5em;
     position: relative;
+
+    left: calc(50% - 95%/2 );
 }
 
 
@@ -457,16 +504,40 @@ main form label button{
     background-position: center;
     background-repeat: no-repeat;
     transition: .5s;
+}
 
-} 
+main form>div{
+    width: 90%;
+    height: auto;
+    padding: .2em;
+background-color: red;
+    position: absolute;
+    left: calc(50% - 90%/2 );
+    z-index: 100;
 
-/* main form > button:hover{
-    background-size: 60%;
-} */
+    display: flex;
+    flex-direction: column;
+    align-items: center
 
-/* main form > button:hover svg{
-    transform: rotateY(360deg);
-} */
+    /* border-radius: 5em ; */
+}
+
+
+main form>div div{
+    width: 95%;
+    height: 2em;
+    /* padding-bottom: .5em; */
+    padding-top: 1em;
+    text-indent: 2em;
+    /* background-color: blue; */
+    padding: .1em 0;
+    color: var(--fontcolor);
+    border-bottom: solid .1em var(--fontcolor);
+}
+
+main form>div div:last-of-type{
+    border-bottom: none;
+}
 
 main>h2 {
     font-size: 1em;
@@ -485,7 +556,7 @@ main>ul {
     width: 100%;
     /* height: 12em; */
 
-    padding: 0 1.5em 0 1em;
+    padding: 0 1.5em 2em 1em;
 
     justify-self: center;
     display: none;
@@ -515,21 +586,33 @@ main>section:first-of-type ul li {
     --size: 11em;
 }
 
-/* main > section:first-of-type ul li button,
-main > ul li button{
+main>ul:has(li.geenResulteten){
+    display: block;
+}
+
+main>ul li.geenResulteten{
     width: 100%;
-    height: 100%;
-    background:none;
-    border: none;
+    height: 50vh;
+    border-radius: 0;
 
-    position: relative;
-    grid-template: 1fr 1fr / 1fr;
-    border-radius: 6em;
-    
-    overflow: hidden;
+    display: grid;
+    justify-items: center;
+}
 
-    filter: drop-shadow( -.3em .3em .1em var(--white-schadow));
-} */
+main>ul li.geenResulteten img{
+    width: auto;
+    height: 90%;
+}
+main>ul li.geenResulteten p:first-of-type{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+main>ul li.geenResulteten p{
+text-align: center;
+color: var(--fontcolor);
+text-shadow: none;
+}
 
 main>section:first-of-type ul li a,
 main>ul li a {
@@ -765,15 +848,15 @@ article button:hover + img {
     transform: scale(1.1);
 }
 
-article section.openimg{
+article.openimg section{
     display: none;
 } 
 
-article:has(section.openimg) button:hover + img{
+article.openimg button:hover + img{
     transform: scale(1);
 }
 
-article:has(section.openimg) img{
+article.openimg img{
     width: 100%;
     height: auto;
 

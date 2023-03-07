@@ -15,7 +15,25 @@ export async function displayLoading() {
 
 }
 
-export function hideLoading() {
-  variables.loadingscherm.classList.remove("display");
-}
+// export function hideLoading() {
+//   variables.loadingscherm.classList.remove("display");
+// }
 
+
+let ul = document.querySelector('main>ul');
+
+export function searchLoading() {
+
+  ul.innerHTML = '';
+
+  ul.style.display = "flex";
+
+  ul.innerHTML = `
+  <li class="geenResulteten">
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </li>`
+}

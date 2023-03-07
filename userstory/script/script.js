@@ -39,6 +39,7 @@ let zoekenButton = document.querySelector('main form label button');
 
 // Listen to the click of the button to initialize the search
 zoekenButton.addEventListener('click', e => {
+  e.preventDefault()
   // Grab the value of the input
   const searchQuery = input.value;
   console.log(searchQuery);
@@ -47,12 +48,14 @@ zoekenButton.addEventListener('click', e => {
   getZoekenData(searchQuery);
 })
 
+
+
+let article = document.querySelector('article');
 let imgButton = document.querySelector('article button');
-let suction = document.querySelector('article section');
-let img = document.querySelector('article>button img');
 
 imgButton.addEventListener('click', test);
 
 function test(){
-  suction.classList.toggle('openimg');
+  article.classList.toggle('rii');
+  console.log("saj");
 }

@@ -1,5 +1,5 @@
 import { fetchData, fetchObjectDetails, fetchZoekURL } from "./fetch.js";
-import { displayLoading } from "./display.js";
+import { searchLoading } from "./display.js";
 import { API_KEY,API_URL, type, artist, title } from './variables.js';
 import { searchResultaten } from "./searchData.js";
 
@@ -114,10 +114,10 @@ export async function get_details(objectNumber) {
 
     article.innerHTML =
     `
-           <button></button>
-           <img src="${objDetails.webImage.url}"
+        <button></button>
+        <img src="${objDetails.webImage.url}"
            alt="${objDetails.longTitle}">
-        <a herf=":history.go(-1)">
+        <a href="#object/">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -140,9 +140,9 @@ export async function get_details(objectNumber) {
                     </g>
                </g>
             </svg>
-          </a>
+        </a>
 
-         <section>
+        <section>
             <div>
                 <h2>${obj_data.artObject.title}</h2>
                 <p> Kunstenaar: ${obj_data.artObject.principalMaker}</p>
@@ -158,37 +158,75 @@ export async function get_details(objectNumber) {
 
 
 export async function getZoekenData(searchQuery){
-    var Alldata = await fetchData(API_URL, API_KEY);
+    const Alldata = await fetchData(API_URL, API_KEY);
     // Array maken van alle makers namen en een Array van alle titles
-    var AllMakersArray = Alldata.artObjects.map(artObject => artObject.principalOrFirstMaker)
-    var AllTitlesArray = Alldata.artObjects.map(artObject => artObject.title)
-
+    const AllMakersArray = Alldata.artObjects.map(artObject => artObject.principalOrFirstMaker)
+    const AllTitlesArray = Alldata.artObjects.map(artObject => artObject.title)
+    
     // Maak een nieuwe arrays zonder herhalen in
-    var makersArray = [...new Set(AllMakersArray)];
-    var titlesArray = [...new Set(AllTitlesArray)];
+    // const makersArray = [...new Set(AllMakersArray)];
+    // const titlesArray = [...new Set(AllTitlesArray)];
 
-    var zoeken = '';
+    // Define an array of autocomplete suggestions
+    const suggestions = [...new Set([...AllMakersArray, ...AllTitlesArray])];
+    // Filter suggestions based on user input
+    // const filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    if(makersArray.findIndex(element =>element.includes(searchQuery))){
+    let zoeken = '';
+
+    if(suggestions.includes(searchQuery)){
+        searchLoading();
         zoeken = 'involvedMaker=' + searchQuery;
-        var data = await fetchZoekURL(API_URL,zoeken);
-        console.log("hoy" , data.artObjects);
+        const data = await fetchZoekURL(API_URL,zoeken);
         searchResultaten(data);
     }
 
-    else if(titlesArray.findIndex(element => element.includes(searchQuery))){
+    else if(suggestions.includes(searchQuery)){
+        searchLoading();
         zoeken = 'title=' + searchQuery;
         var data = await fetchZoekURL(API_URL,zoeken);
+        searchResultaten(data);
     }
 
-    else{
-        console.log("none");
-    }
+    else {
+        searchLoading();
+        let ul = document.querySelector('main>ul');
 
+        ul.innerHTML = '';
+
+        ul.innerHTML = `
+          <li class="geenResulteten">
+            <img src="./images/error.svg" alt="geenResulteten image">
+            <p> Sorry! </p>
+            <p> Er is geen resultaten.
+            probeer andere zoekwoorden </p>
+          </li>
+        `;
+    }
 }
+
+// const searchInput = document.getElementById('main form label input');
+// const suggestionsContainer = document.getElementById('main form div');
+
+// searchInput.addEventListener('input', async function() {
+//   const searchQuery = this.value;
+//   const suggestions = await getZoekenData(searchQuery);
+
+//   // Clear existing suggestions
+//   suggestionsContainer.innerHTML = '';
+
+//   // Add new suggestions to suggestionsContainer
+//   suggestions.forEach(suggestion => {
+//     const suggestionDiv = document.createElement('div');
+//     suggestionDiv.textContent = suggestion;
+//     suggestionsContainer.appendChild(suggestionDiv);
+//   });
+// });
+
 
 // getZoekenData("anoniem");
 
+        // <img src="./images/error.svg" alt="geenResulteten image">
 
 
 
