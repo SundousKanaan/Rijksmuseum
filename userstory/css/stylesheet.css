@@ -13,18 +13,14 @@ html {
 }
 
 :root {
-    --font-family: 'Golos Text', sans-serif;
     --fontcolor: rgb(236, 236, 236);
     --dark-fontcolor: black;
-    --thema-fontcolor: rgb(255, 123, 0);
-    --thema-color: rgb(252, 252, 252);
-    --licht-background: rgba(0, 0, 0, 0.247);
 
     --schadow: rgba(236, 236, 236, 80%);
     --white-schadow: rgba(226, 226, 226, 0.219);
 
     --input-text: rgb(49, 49, 49);
-    --details-background: transparent, rgba(0, 0, 0, 0.664) 20%, black 60%;
+    --details-background: transparent 0%, black 20%;
     --titel-background: rgba(0, 0, 0, 0.591);
 
 
@@ -48,7 +44,6 @@ button {
 }
 
 body {
-    font-family: var(--font-family);
     width: 100vw;
     height: 100dvh;
     height: 100vh;
@@ -111,17 +106,18 @@ body>div::after {
 }
 
 /* body:not(body > div.display){
-    overflow-y: visible;
+    overflow-y: scroll;
 } */
+
+
+body:has(body > div.display) {
+    overflow-y: visible;
+}
 
 body>div.display,
 body>div.display::after,
 body>div.display img {
     display: block;
-}
-
-body:has(body > div.display) {
-    overflow-y:hidden;
 }
 
 
@@ -553,9 +549,9 @@ main>ul li a div {
     height: 100%;
 
     position: absolute;
-    /* bottom: -55%; */
+    bottom: -50%;
     opacity: 100%;
-    transition: .3s;
+    transition: 1s;
     z-index: 1;
 
     border-radius: 6em;
@@ -564,26 +560,26 @@ main>ul li a div {
 
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 
 main>section:first-of-type ul li a div h3,
 main>ul li a div h3 {
-    font-size: 1em;
+    font-size: .9em;
     color: var(--fontcolor);
-    width: 90%;
+    width: 80%;
     height: fit-content;
     text-align: center;
-    line-height: 1.5em;
-    font-weight: lighter;
+
+    position: relative;
+    top: 15%;
 }
 
 @media (min-width: 768px) {
 
     main>section:first-of-type ul li a div,
     main>ul li a div {
-        bottom: -100%;
+        bottom: -150%;
         opacity: 0;
     }
 
@@ -705,25 +701,24 @@ main>section:first-of-type ul li {
 
 body>article {
     width: 100%;
-    height: fit-content;
 
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
 
-    z-index: 200;
+    z-index: 100000000000;
 
-    /* grid-row: 1/3; */
-
-    /* background-color: red; */
+    grid-row: 1/3;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 3.5em 40vh 30em auto;
+    grid-template-rows: 4em 55vh 100% auto;
+
+    display: none;
 }
 
-body>article>button {
+body>article>button:first-of-type {
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -735,23 +730,22 @@ body>article>button {
 
 }
 
-body>article>button img {
+body>article>button:first-of-type img {
     height: 100%;
     width: 100%;
 
     display: block;
     object-fit: cover;
-    object-position: center;
+    object-position: center center;
     transition: 1s;
-
-    grid-area: 1/1/3/-1;
 }
 
-body>article>button:first-of-type:hover img {
+/* body>article>button:first-of-type:hover img {
     transform: scale(1.1);
-}
+} */
 
-/* body>article>button.openimg{
+body>article>button:first-of-type.openimg{
+    /* background-image: linear-gradient(var(--linear-gradient)); */
     background-color: red;
     height: 100vh;
 
@@ -761,51 +755,41 @@ body>article>button:first-of-type:hover img {
     z-index: 1000000000;
 }
 
-body>article>button.openimg img{
+body>article>button:first-of-type.openimg img{
 
     width: 100%;
     height: auto;
-} */
+}
 
-body>article>a {
+body>article>button:nth-of-type(2) {
     width: var(--button-width);
     height: var(--button-width);
-    display: block;
-
     background-color: var(--schadow);
-    /* background-color: aqua; */
 
-    grid-row: 1/2;
-    border-radius: 50%;
+    grid-area: 1/1/2/-1;
 
-    position: absolute;
+    position: relative;
     left: .5em;
     top: .5em;
     z-index: inherit;
-
-    cursor: pointer;
 }
 
-body>article>a svg {
-    width: 100%;
+body>article>button:nth-of-type(2) svg {
     transform: rotate(90deg) scale(.9);
     filter: var(--no-brightness);
-    transition: .3s;
+
 }
 
-body>article>a:hover svg {
-    transform: rotate(90deg) scale(1.1);
-}
 
 body>article>section {
     width: 100%;
     height: 100%;
-    grid-row: 3;
-    grid-column: 1/2;
+    grid-area: 3/1;
 
     color: var(--fontcolor);
 
-    padding: 4em 10vw;
+    border-radius: 50% 50% 0% 0% / 40% 40% 0% 0%;
+    padding: 4em 2em;
 
     position: relative;
     z-index: 2000;
@@ -818,68 +802,34 @@ body>article>section {
     overflow: hidden;
 }
 
-@media screen and (min-width: 1000px) {
-    body>article>section {
-        padding: 0 18vw 5vh 18vw;
-    }
-}
-
 body>article>section div h2,
 body>article>section h3,
-body>article>section p {
-    width: fit-content;
+body>article>section p{
+    width: 100%;
 }
 
-body>article>section div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body>article>section div{
+    text-align: center;
     height: 9em;
+    margin-bottom: 1em;
 
-    margin-bottom: 2em;
 }
 
-body>article>section div p {
-    color: var(--thema-fontcolor);
-    padding: .5em;
-    background-color: var(--licht-background);
-    border: solid .3em var(--thema-color);
+body>article>section div h2{
+    font-size: 2rem;
 }
 
 body>article>section div h2,
-body>article>section h3 {
+body>article>section h3{
     margin-bottom: .5em;
-}
-
-body>article>section h3 {
-    font-size: 2rem;
-    margin-bottom: .5em;
-}
-
-body>article>section>p {
-    line-height: 1.5em;
-}
-
-@media screen and (min-width: 1000px) {
-    body>article>section>p {
-        font-size: 1.2em;
-        line-height: 1.5em;
-    }
-}
-
-body>article>section>p::first-letter {
-    color: var(--thema-fontcolor);
-    font-size: 4em;
-    font-weight: bolder;
-    line-height: .5em;
-    margin-right: .1em;
-    float: left;
 }
 
 /* body>article>section h3,
 body>article>section > p{
     text-indent: 10rem;
 } */
+
+
 
 
 
