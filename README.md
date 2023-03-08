@@ -8,7 +8,7 @@ In deze cursus leer ik een webapplicatie te bouwen zonder frameworks of overbodi
   - [S4D](S4D/index.html)
   - [userstory](userstory/index.html)
 
-## Mijn gekozen opdracht:
+## Mijn vak gekozen opdracht:
   Mijn user story
    <br> Als een kunstliefhebber wil ik kunstwerken van het Rijksmuseum thuis kunnen zoeken en bekijken, zodat ik tijdens een lockdown nog steeds van kunst kan genieten.
    <br> Mijn opdracht is om de Rijksmuseum API te gebruiken om de gegevens van de schilderijen en kunstenaars op te halen en daarmee een app te maken.
