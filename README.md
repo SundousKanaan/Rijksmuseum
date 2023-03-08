@@ -3,7 +3,7 @@
 In deze cursus leer ik een webapplicatie te bouwen zonder frameworks of overbodige bibliotheken, maar zo veel mogelijk met pure HTML, CSS & JavaScript. Het eindresultaat is een modulaire, enkelpagina webapp (SPA) die ik zal creëren. Ik zal data op halen van een externe API, deze bewerken en uiteindelijk tonen in de gebruikersinterface van de app. Ik zal leren hoe ik interfaceprincipes toepas bij het bouwen en testen van de interface. Met de verworven kennis kan ik interactieve prototypes bouwen op basis van een gebruikersverhaal en echte data. Ik krijg ook een beter begrip van hoe API's, frameworks en bibliotheken werken.
 
 ## Opdrachten
-**De opdrachten:** 
+**De live demo's:** 
   - [visitekaartje](visitekaartje/index.html)
   - [S4D](S4D/index.html)
   - [userstory](userstory/index.html)
