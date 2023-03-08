@@ -31,14 +31,18 @@ html {
     --titel-filter: brightness(15);
     --no-brightness: brightness(0);
 
-
-
     --button-width: 2.5em;
 
     --linear-gradient: 45deg, rgb(68, 68, 68), black, rgb(68, 68, 68);
     --transparant-linear-gradient: rgba(0, 0, 1, 0.9) 40%, transparent 100%;
 }
 
+
+*:focus,
+li:has(a:focus){
+    outline-color: var(--thema-fontcolor);
+    box-shadow: 0 0 0 .2em var(--thema-fontcolor);
+}
 
 button {
     background: none;
@@ -47,7 +51,7 @@ button {
     border-radius: 50%;
 }
 
-.loading{
+.loading {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -57,7 +61,7 @@ button {
     column-gap: 1em;
 }
 
-.loading span{
+.loading span {
     width: .5rem;
     aspect-ratio: 1/1;
     display: block;
@@ -70,31 +74,28 @@ button {
     animation: loadingResultaten 1s linear infinite both;
 }
 
-.loading span:nth-of-type(2){
+.loading span:nth-of-type(2) {
     animation-delay: .25s;
 }
 
-.loading span:nth-of-type(3){
+.loading span:nth-of-type(3) {
     animation-delay: .5s;
 }
 
-@keyframes loadingResultaten{
-    0%{
+@keyframes loadingResultaten {
+    0% {
         opacity: 0;
     }
-    50%{
-        opacity: 50%;;
+
+    50% {
+        opacity: 50%;
+        ;
     }
-    100%{
+
+    100% {
         opacity: 100%;
     }
 }
-
-
-
-
-
-
 
 
 
@@ -102,15 +103,17 @@ body {
     font-family: var(--font-family);
     width: 100vw;
     height: 100dvh;
-    height: 100vh;
+    height: fit-content;
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
 
     background-image: linear-gradient(var(--linear-gradient));
+    background-repeat: no-repeat;
+
 }
 
-body.hidden{
+body.hidden {
     overflow-y: hidden;
 }
 
@@ -172,7 +175,7 @@ body>div.display img {
 }
 
 body:has(body > div.display) {
-    overflow-y:hidden;
+    overflow-y: hidden;
 }
 
 
@@ -250,34 +253,7 @@ header h1 img {
     filter: var(--titel-filter);
 }
 
-header>a:first-of-type {
-    width: var(--button-width);
-    height: var(--button-width);
-    position: absolute;
-    top: 1em;
-    right: 1.5rem;
-
-    background-color: var(--schadow);
-    box-shadow: 0 0 1em var(--schadow);
-
-    border-radius: 3em;
-
-    display: grid;
-
-    z-index: 2;
-
-    background-image: url(https://cdn-icons-png.flaticon.com/512/3917/3917754.png);
-    background-size: 55%;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: .5s;
-}
-
-header>a:first-of-type:hover {
-    background-size: 60%;
-}
-
-header>a:last-of-type {
+header>a {
     width: var(--button-width);
     height: var(--button-width);
     border-radius: 5em;
@@ -290,6 +266,7 @@ header>a:last-of-type {
     z-index: 3;
 
     cursor: pointer;
+    background-color: var(--white-schadow);
 
     display: grid;
 
@@ -298,7 +275,7 @@ header>a:last-of-type {
 
 @keyframes flow {
     0% {
-        box-shadow: 0 0 1em var(--white-schadow), inset 0 0 1em var(--white-schadow);
+        box-shadow: 0 0 1em 1em var(--white-schadow), inset 0 0 1em var(--white-schadow);
         transform: translateY(-.1em);
     }
 
@@ -307,7 +284,7 @@ header>a:last-of-type {
     }
 
     100% {
-        box-shadow: 0 0 1em var(var(--white-schadow)), inset 0 0 1em var(--white-schadow);
+        box-shadow: 0 0 1em 1em var(var(--white-schadow)), inset 0 0 1em var(--white-schadow);
         transform: translateY(-.1em);
     }
 }
@@ -429,18 +406,20 @@ header ul li img {
 
 main {
     width: 100vw;
-    height: 100%;
+    height: 100vh;
 
     /* padding-top: 2em; */
     padding: 2em 1em 0 1em;
 
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 2.5em 1em;
+    grid-template-rows: 2.5em 1em 0;
     gap: 1em;
     justify-items: center;
 
     position: relative;
+
+    background-image: linear-gradient(var(--linear-gradient));
 }
 
 main::after {
@@ -457,37 +436,52 @@ main::after {
 
 main form {
     width: 100vw;
-    position: relative;
-}
-
-main form label {
-    width: 95%;
     height: 2.5em;
     position: relative;
 
-    left: calc(50% - 95%/2 );
+    scroll-margin-top: 2em;
+}
+
+main form label {
+    width: 90%;
+    height: 2.5em;
+    position: relative;
+
+    left: calc(50% - 90%/2);
 }
 
 
-main form label input[type=text] {
+main form label input[type=search] {
     width: inherit;
     height: 100%;
 
     border: none;
     border-radius: 5em;
-    text-indent: 2em;
-
-    /* background-image: url(https://cdn-icons-png.flaticon.com/512/3917/3917754.png);
-    background-position: right 2em center;
-    background-repeat: no-repeat;
-    background-size: 2em; */
+    text-indent: 4em;
 
     padding-right: 5em;
 
     color: var(--input-text);
 }
 
-main form label button{
+main form label input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+
+    height: 2em;
+    width: 2em;
+    /* background-color: var(--thema-fontcolor); */
+    background-image: url(https://icones.pro/wp-content/uploads/2021/08/icone-x-avec-cercle-orange.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+
+    position: absolute;
+    left: 1em;
+    cursor: pointer;
+}
+
+main form label button {
     width: var(--button-width);
     height: var(--button-width);
 
@@ -506,37 +500,36 @@ main form label button{
     transition: .5s;
 }
 
-main form>div{
+main>p {
     width: 90%;
-    height: auto;
-    padding: .2em;
-background-color: red;
-    position: absolute;
-    left: calc(50% - 90%/2 );
+    /* height: auto; */
+    max-height: 1em;
     z-index: 100;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center
-
-    /* border-radius: 5em ; */
-}
-
-
-main form>div div{
-    width: 95%;
-    height: 2em;
-    /* padding-bottom: .5em; */
-    padding-top: 1em;
-    text-indent: 2em;
-    /* background-color: blue; */
-    padding: .1em 0;
+    font-size: .8em;
     color: var(--fontcolor);
-    border-bottom: solid .1em var(--fontcolor);
+
+    grid-area: 2/1/3/2;
+
 }
 
-main form>div div:last-of-type{
-    border-bottom: none;
+main>a{
+    width: var(--button-width);
+    height: var(--button-width);
+    border-radius: 50%;
+    box-shadow: 0 0 .5em .2em var(--white-schadow);
+    background-color: var(--white-schadow);
+
+    position: fixed;
+    bottom: 27%;
+    right: 2em;
+
+    z-index: 1000;
+    display: none;
+}
+
+main>a svg{
+    transform: rotate(180deg);
 }
 
 main>h2 {
@@ -544,9 +537,9 @@ main>h2 {
     width: 100%;
     height: 100%;
     height: fit-content;
-    text-indent: 2em;
+    text-indent: 1em;
 
-    grid-area: 2/1/3/2;
+    grid-area: 3/1/4/2;
 
     color: var(--fontcolor);
 }
@@ -554,9 +547,10 @@ main>h2 {
 main>ul {
     list-style: none;
     width: 100%;
-    /* height: 12em; */
 
     padding: 0 1.5em 2em 1em;
+    grid-row-start: 4;
+
 
     justify-self: center;
     display: none;
@@ -586,11 +580,11 @@ main>section:first-of-type ul li {
     --size: 11em;
 }
 
-main>ul:has(li.geenResulteten){
+main>ul:has(li.geenResulteten) {
     display: block;
 }
 
-main>ul li.geenResulteten{
+main>ul li.geenResulteten {
     width: 100%;
     height: 50vh;
     border-radius: 0;
@@ -599,19 +593,20 @@ main>ul li.geenResulteten{
     justify-items: center;
 }
 
-main>ul li.geenResulteten img{
+main>ul li.geenResulteten img {
     width: auto;
     height: 90%;
 }
-main>ul li.geenResulteten p:first-of-type{
+
+main>ul li.geenResulteten p:first-of-type {
     font-weight: bold;
     font-size: 1.5em;
 }
 
-main>ul li.geenResulteten p{
-text-align: center;
-color: var(--fontcolor);
-text-shadow: none;
+main>ul li.geenResulteten p {
+    text-align: center;
+    color: var(--fontcolor);
+    text-shadow: none;
 }
 
 main>section:first-of-type ul li a,
@@ -659,6 +654,11 @@ main>ul li a div h3 {
     text-align: center;
     line-height: 1.5em;
     font-weight: lighter;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
 @media (min-width: 768px) {
@@ -670,7 +670,8 @@ main>ul li a div h3 {
     }
 
     main>section:first-of-type ul li:hover a:hover div,
-    main>ul li a:hover div {
+    main>ul li a:hover div,
+    li:has(a:focus) div {
         transform: translateY(-100%);
         opacity: 100%;
     }
@@ -694,11 +695,18 @@ main ul li a img {
 
 main>section:first-of-type {
     width: 100vw;
-    /* max-width: 80vw; */
     height: fit-content;
     /* overflow: hidden; */
     padding-left: 1em;
     position: relative;
+    margin-top: 1em;
+}
+
+@media (min-width: 1000px){
+    main>section:first-of-type {
+        width: 75vw;
+        justify-self: center;
+    }
 }
 
 main>section:first-of-type::before {
@@ -708,8 +716,6 @@ main>section:first-of-type::before {
     height: .1em;
 
     background-color: var(--fontcolor);
-
-    /* background-color: red; */
 
     position: absolute;
     top: -1em;
@@ -730,13 +736,16 @@ main>section:first-of-type ul {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: center;
     gap: 1em;
 
 
     overflow-x: scroll;
     overflow-y: hidden;
-    overscroll-behavior: contain;
     scroll-snap-type: x mandatory;
+    overscroll-behavior: none;
+
+    background-image: linear-gradient(to right, transparent 80% , var(--white-schadow));
 }
 
 main>section:first-of-type ul::-webkit-scrollbar {
@@ -776,7 +785,7 @@ main>section:first-of-type ul li {
 /* ****************************** */
 
 
-/* ************  main  ********** */
+/* ************  article  ********** */
 
 
 /* ****************************** */
@@ -798,7 +807,7 @@ article {
 
     z-index: 200;
 
-    /* grid-row: 1/3; */
+    grid-row-start: 1;
 
     background-image: linear-gradient(var(--linear-gradient));
 
@@ -809,27 +818,51 @@ article {
     display: none;
 }
 
-article button {
-    display: block;
-    width: calc(var(--button-width) + .5em);
-    height: calc(var(--button-width) + .5em);
-    cursor: pointer;
-    border-radius: 50%;
+article a:first-of-type:hover {
+    background-size: 85%;
+}
 
-    background-color: var(--schadow);
-    background-image:
-     url(https://cdn.icon-icons.com/icons2/1898/PNG/512/enlarge_121031.png);
-     background-position: center;
-    background-size: 80%;
-    background-repeat: no-repeat;
+article a{
+    width: var(--button-width);
+    height: var(--button-width);
+    background-color: var(--white-schadow);
     position: absolute;
-    z-index: 1;
-    /* overflow: hidden; */
+    z-index: 1000;
 
-    grid-area: 1/1/1/-1;
+    border-radius: 50%;
+    margin: 1em 1.5em;
+
+    background-position: center;
+    background-size: 75%;
+    background-repeat: no-repeat;
+
+    transition: .4s;
+}
+
+article a:nth-of-type(2){
+    background-image: url(https://cdn-icons-png.flaticon.com/512/2989/2989868.png);
     justify-self: end;
-    margin: 1em 2em 0 0;
+}
 
+article a:first-of-type{
+    background-image: url(https://cdn-icons-png.flaticon.com/512/1174/1174407.png);
+    justify-self: start;
+    margin: 1em 1em;
+}
+
+article a:nth-of-type(3){
+    background-image: url(https://cdn-icons-png.flaticon.com/512/44/44707.png?w=360);
+    background-size: 85%;
+    display: none;
+    justify-self: end;
+}
+
+article a:hover{
+    background-size: 85%;
+}
+
+article a:nth-of-type(3):hover{
+    background-size: 60%;
 }
 
 article img {
@@ -841,56 +874,57 @@ article img {
     object-position: center;
     transition: 1s;
 
+    /* fade image effect : https://stackoverflow.com/questions/9525215/using-css-can-you-apply-a-gradient-mask-to-fade-to-the-background-over-text */
+    -webkit-mask-image: -webkit-gradient(linear, left 5%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+
     grid-area: 1/1/4/-1;
 }
 
-article button:hover + img {
+article:has(a:nth-of-type(2):hover) img {
     transform: scale(1.1);
 }
 
-article.openimg section{
+article.openimg section {
     display: none;
-} 
+}
 
-article.openimg button:hover + img{
+article.openimg a:nth-of-type(3) {
+    display: block;
+    z-index: 100;
+}
+
+article.openimg a:not(:nth-of-type(3)){
+    display: none;
+}
+
+article.openimg a:first-of-type:hover{
+    background-size: 65%;
+}
+
+article a:first-of-type + img {
     transform: scale(1);
 }
 
-article.openimg img{
+article.openimg{
+ justify-content: center
+}
+
+
+article.openimg img {
     width: 100%;
     height: auto;
 
+    justify-self: center;
     align-self: center;
-} 
-
-article>a {
-    width: var(--button-width);
-    height: var(--button-width);
-    display: block;
-
-    background-color: var(--schadow);
-    /* background-color: aqua; */
-
-    grid-row: 1/2;
-    border-radius: 50%;
-
-    position: absolute;
-    left: .5em;
-    top: .5em;
-    z-index: inherit;
-
-    cursor: pointer;
 }
 
-article>a svg {
-    width: 100%;
-    transform: rotate(90deg) scale(.9);
-    filter: var(--no-brightness);
-    transition: .3s;
-}
 
-article>a:hover svg {
-    transform: rotate(90deg) scale(1.1);
+
+@media screen and (min-width: 950px) {
+    article.openimg img {
+        width: auto;
+        height: 100%;
+    }
 }
 
 article>section {
@@ -926,7 +960,7 @@ article>section p {
     width: fit-content;
 }
 
-article>section div {
+article>section div:first-of-type {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -935,7 +969,7 @@ article>section div {
     margin-bottom: 2em;
 }
 
-article>section div p {
+article>section div:first-of-type p {
     color: var(--thema-fontcolor);
     padding: .5em;
     background-color: var(--licht-background);
@@ -943,7 +977,7 @@ article>section div p {
     border-radius: 50em;
 }
 
-article>section div h2,
+article>section div:first-of-type h2,
 article>section h3 {
     margin-bottom: .5em;
 }
@@ -964,7 +998,12 @@ article>section>p {
     }
 }
 
-article>section>p::first-letter {
+article>section>p:first-of-type{
+    padding-bottom: 1em;
+    border-bottom: solid .2em var(--fontcolor);
+}
+
+article>section>p:first-of-type::first-letter {
     color: var(--thema-fontcolor);
     font-size: 4em;
     font-weight: bolder;
@@ -973,25 +1012,19 @@ article>section>p::first-letter {
     float: left;
 }
 
+article>section> div:not(:first-of-type){
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 1em;
+    gap: 1em;
+}
+
+article>section>div p:first-of-type{
+    color: var(--thema-fontcolor);
+}
+
 /* article>section h3,
 article>section > p{
     text-indent: 10rem;
 } */
-
-
-
-
-
-
-
-main>p:last-child {
-    color: var(--fontcolor);
-    position: absolute;
-    bottom: 0;
-
-    font-size: .8em;
-
-    height: 2em;
-
-    display: none;
-}

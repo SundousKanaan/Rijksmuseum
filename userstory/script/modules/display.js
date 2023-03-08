@@ -1,5 +1,6 @@
 import * as variables from './variables.js';
 
+
 var body = document.body;
 
 export async function displayLoading() {
@@ -15,20 +16,14 @@ export async function displayLoading() {
 
 }
 
-// export function hideLoading() {
-//   variables.loadingscherm.classList.remove("display");
-// }
-
-
-let ul = document.querySelector('main>ul');
-
 export function searchLoading() {
 
-  ul.innerHTML = '';
+  variables.h2.innerHTML = '';
+  variables.ul.innerHTML = '';
 
-  ul.style.display = "flex";
+  variables.ul.style.display = "flex";
 
-  ul.innerHTML = `
+  variables.ul.innerHTML = `
   <li class="geenResulteten">
     <div class="loading">
       <span></span>
@@ -37,3 +32,16 @@ export function searchLoading() {
     </div>
   </li>`
 }
+
+export function errorscreen() {
+  const errorscreen =`
+  <div class="loading">
+    <span></span>
+      <span></span>
+      <span></span>
+  </div>
+  `;
+  return errorscreen;
+}
+
+

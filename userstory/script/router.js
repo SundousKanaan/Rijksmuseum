@@ -1,30 +1,54 @@
 import './routie/routie.js';
-import { fetchData, fetchObjectDetails } from './modules/fetch.js';
-// import { displayLoading, hideLoading } from './modules/display.js';
+import { fetchData } from './modules/fetch.js';
 import { get_details } from './modules/data.js';
-import { API_URL, API_KEY, type, artist, title , objectNumber} from './modules/variables.js'
+import { API_URL, API_KEY, objectNumber, article} from './modules/variables.js'
+
+
+let header = document.querySelector('header');
+let main = document.querySelector('main');
+let mainElementen = document.querySelectorAll('main > *');
 
 
 
 
 export async function onRouteChanged(data) {
     routie({
-        'object/#object ': function (){
-            console.log('kaas')
-            let article = document.querySelector('body>article');
-            article.innerHTML='';
-            article.style.display = "none";
+        'object/open_image': function (){
+            article.classList.add('openimg');
         }
         ,
+        'object/details_page': function (){
+            article.classList.remove('openimg');
+        }
+        ,
+        'object/zoekbalk': function (){
+            header.style.display='none';
+        }
+        ,
+        'object/zoeken_page': function (){
+            article.innerHTML='';
+            article.style.display = "none";
+            main.style.padding='2em 1em 0 1em';
 
+            mainElementen.forEach(mainElement =>{
+                mainElement.style.display ='';
+            })
+        }
+        ,
         'object/:objectNumber': async function (objectNumber) {
             var item_details = get_details(objectNumber);
             console.log("item_details", item_details);
+            header.style.display='none';
+            main.style.padding='0 1em 0 1em';
+
+            mainElementen.forEach(mainElement =>{
+                mainElement.style.display ='none';
+            })
         }
     })
 }
 
-const sdata = await fetchData(API_URL, API_KEY, type, artist, title);
+const sdata = await fetchData(API_URL, API_KEY);
 
 
 

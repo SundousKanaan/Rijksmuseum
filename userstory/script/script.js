@@ -2,8 +2,8 @@
 import { fetchData } from './modules/fetch.js';
 import { onRouteChanged } from './router.js';
 import { displayLoading } from './modules/display.js';
-import { getZoekenData } from './modules/data.js '
-import { headerfotos } from './modules/data.js';
+import { getZoekenData, headerfotos } from './modules/data.js';
+
 
 
 let Alldata;                             // Declare a variable named "Alldata" to store fetched data.
@@ -47,15 +47,3 @@ zoekenButton.addEventListener('click', e => {
   // Start the chain using the input value
   getZoekenData(searchQuery);
 })
-
-
-
-let article = document.querySelector('article');
-let imgButton = document.querySelector('article button');
-
-imgButton.addEventListener('click', test);
-
-function test(){
-  article.classList.toggle('rii');
-  console.log("saj");
-}

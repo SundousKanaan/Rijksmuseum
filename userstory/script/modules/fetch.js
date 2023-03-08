@@ -1,40 +1,6 @@
-import { API_URL, API_KEY, type, artist, title } from './variables.js';
-import * as display from './display.js';
+import { API_URL, API_KEY} from './variables.js';
+import { errorscreen } from './display.js';
 import { TOP10 , headerfotos , get_details, getZoekenData} from './data.js';
-
-// async function fetchData(API_URL, API_KEY) {
-
-//     const res = await fetch(API_URL)
-//     .then(response => response.json())
-//     .then(data => {
-//       // console.log('fetch resultaten: ' , data);
-
-//       TOP10(data);
-//     })
-
-//     const API_schilderijen_URL =`https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}&ps=100&&type=schilderij`;
-//     fetch(API_schilderijen_URL)
-//         .then(response => response.json())
-//         .then(data => {
-//           headerfotos(data);
-//     })
-// }
-
-// export async function fetchData(API_URL, API_KEY) {
-//   const response1 = await fetch(API_URL);
-//   const data1 = await response1.json();
-//   console.log('fetch resultaten 1:', data1);
-
-//   const API_schilderijen_URL = `https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}&ps=100&&type=schilderij`;
-//   const response2 = await fetch(API_schilderijen_URL);
-//   const data2 = await response2.json();
-//   console.log('fetch resultaten 2:', data2);
-
-//   TOP10(data1);
-//   headerfotos(data2)
-//   return [data1, data2];
-// }
-
 
 export async function fetchData(API_URL, API_KEY) {
   try{
@@ -58,7 +24,7 @@ export async function fetchZoekURL(API_URL,zoeken) {
   try {
     const response = await fetch(ALLAPI_URL);
     const data = await response.json();
-    // console.log('fetchZoekURL', data);
+    console.log('fetchZoekURL', data);
     return data;
   } catch (error) {
     // console.log('fetchZoekURL error', error);
@@ -67,30 +33,34 @@ export async function fetchZoekURL(API_URL,zoeken) {
 }
 
 
-
-
 export async function fetchObjectDetails(objectNumber) { 
-
   try{
-    const objectDetails_URL = `https://www.rijksmuseum.nl/api/nl/collection/${objectNumber}?&key=${API_KEY}&ps=1000&`;
+    const objectDetails_URL = `https://www.rijksmuseum.nl/api/nl/collection/${objectNumber}?&key=${API_KEY}&ps=1000`;
     const res = await fetch(objectDetails_URL)
     const data = res.json()
     return data
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+export async function fetchTypeData(searchQuery) { 
+
+  try{
+    const objectDetails_URL = `${API_URL}&type=${searchQuery}`;
+    console.log(objectDetails_URL);
+    const res = await fetch(objectDetails_URL)
+    const data = res.json();
+    return data
+
+    console.log(data);
   } catch (error) {
     // console.log('fetchZoekURL error', error);
     throw error;
   }
 }
 
-
-// async function fetchZoekURL(searchQuery) { 
-
-//   const API_URL = `https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}&ps=1000&involvedMaker=${searchQuery}`;
-//   const res = await fetch(API_URL)
-//   const data = res.json()
-//   return data
-
-// }
 
 
 

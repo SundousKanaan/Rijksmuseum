@@ -1,6 +1,8 @@
-import { API_KEY,API_URL, type, artist, title } from './variables.js';
 
-export async function searchResultaten(data) {
+import { ul, h2, main ,toTop } from './variables.js';
+
+
+export async function searchResultaten(searchQuery,data) {
     var mijnData = data.artObjects;
     const imageURLs = mijnData.map(artObject => artObject.webImage?.url || 'https://via.placeholder.com/150' ); //placeholder image
     const imageTitels =  mijnData.map(artObject => artObject.title);
@@ -23,10 +25,9 @@ export async function searchResultaten(data) {
 
     console.log("mijn Array:" , array);
 
-
-
-
-    let ul = document.querySelector('main>ul');
+    h2.innerHTML=`
+    "${searchQuery}" Resultaten:
+    `
     ul.innerHTML = '';
 
     const liHTML = array.map((item) => `
@@ -39,8 +40,11 @@ export async function searchResultaten(data) {
             alt="${item.longTitel}">
         </a>
     </li>
-`).join('');
+    `
+).join('');
 
     ul.innerHTML = liHTML;
-    console.log("mijn ul:" , ul);
+
+    toTop.style.display="block";
+    main.style="grid-template-rows:auto;";
 }

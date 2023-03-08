@@ -1,21 +1,20 @@
-import { fetchData, fetchObjectDetails, fetchZoekURL } from "./fetch.js";
-import { searchLoading } from "./display.js";
-import { API_KEY,API_URL, type, artist, title } from './variables.js';
+import { fetchData, fetchObjectDetails, fetchZoekURL} from "./fetch.js";
+import { displayLoading, searchLoading, errorscreen } from "./display.js";
+import { API_KEY,API_URL,article, ul } from './variables.js';
 import { searchResultaten } from "./searchData.js";
 
 export async function headerfotos(data) {
     const API_URL = `https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}&ps=100&&type=schilderij&imgonly=true`;
     var data = await fetchData(API_URL, API_KEY);
     const top5ArtObjects = data.artObjects.slice(0, 5);
-    
-    const imageURLs = top5ArtObjects.map(artObject => artObject.webImage.url);
     const listElement = document.createElement('ul');
 
-    imageURLs.forEach((imageURL) => {
+    top5ArtObjects.forEach((top5ArtObject) => {
         const itemElement = document.createElement('li');
         const imageElement = document.createElement('img');
 
-        imageElement.src = imageURL; //img
+        imageElement.src = top5ArtObject.webImage.url; //img
+        imageElement.alt = top5ArtObject.longTitle;
 
         itemElement.appendChild(imageElement); //li
         listElement.appendChild(itemElement); //ul
@@ -23,16 +22,6 @@ export async function headerfotos(data) {
         const headerElement = document.querySelector('header');
         headerElement.appendChild(listElement);
     });
-
-    const imageTitels = top5ArtObjects.map(artObject => artObject.title);
-
-    var headerimgs = document.querySelectorAll("header ul li img")
-
-    imageTitels.forEach((imagetitel) => {
-        for (let i = 0; i < headerimgs.length; i++) {
-            headerimgs[i].alt = imagetitel;
-        }
-    })
 }
 
 headerfotos();
@@ -93,107 +82,133 @@ export async function TOP10(data) {
 TOP10();
 
 
-
-
-let article = document.querySelector('body>article');
-
 export async function get_details(objectNumber) {
-
-    const obj_data = await fetchObjectDetails(objectNumber)
-
-    // console.log("done fetch obj data", obj_data.artObject)
-
-    let objDetails = obj_data.artObject;
-    let description = objDetails.description;
-    if (description === null) {
-        description = "Er is momenteel geen beschrijving beschikbaar voor dit werk, informatie zal worden bijgewerkt zodra deze beschikbaar is.";
-    }
-
-    article.style.display = "grid";
-    // article.setAttribute(id, "test" `${objDetails.objectNumber}`);
-
-    article.innerHTML =
-    `
-        <button></button>
-        <img src="${objDetails.webImage.url}"
-           alt="${objDetails.longTitle}">
-        <a href="#object/">
-            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#000000">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                    <defs>
-                        <style>
-                            .cls-1 {
-                                fill: none;
-                                stroke: #ffffff;
-                                stroke-linecap: round;
-                                stroke-linejoin: round;
-                                stroke-width: 2px;
-                            }
-                        </style>
-                    </defs>
-                    <title></title>
-                    <g id="chevron-bottom">
-                        <line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"></line>
-                        <line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"></line>
-                    </g>
-               </g>
-            </svg>
-        </a>
-
-        <section>
-            <div>
-                <h2>${obj_data.artObject.title}</h2>
-                <p> Kunstenaar: ${obj_data.artObject.principalMaker}</p>
-            </div>
-            <h3>Description:</h3>
-            <p>${description}</p>
-        </section>
-   `
-
-    return article;
-
+        displayLoading();
+        const obj_data = await fetchObjectDetails(objectNumber)
+        let objDetails = obj_data.artObject;
+        let description = objDetails.description;
+        if (description === null) {
+            description = "Er is momenteel geen beschrijving beschikbaar voor dit werk, informatie zal worden bijgewerkt zodra deze beschikbaar is.";
+        }
+    
+    
+        if(objDetails.webImage.url == null){
+            console.log("none foto")
+        }
+        article.style.display = "grid";
+        // article.setAttribute(id, "test" `${objDetails.objectNumber}`);
+    
+        article.innerHTML =
+        `
+           <a href="#object/zoeken_page"></a>
+            <a href="#object/open_image"></a>
+            <a href="#object/details_page"></a>
+    
+            <img src="${objDetails.webImage.url}" alt="${objDetails.longTitle}">
+    
+            <section>
+                <div>
+                    <h2>${obj_data.artObject.title}</h2>
+                    <p> Kunstenaar: ${obj_data.artObject.principalMaker}</p>
+                </div>
+    
+                <h3>Description:</h3>
+                <p>${description}</p>
+    
+                <div>
+                    <p>Type:</p>
+                    <p>${objDetails.objectTypes}</p>
+                </div>
+    
+                <div>
+                    <p>Techniques:</p>
+                    <p>${objDetails.techniques}</p>
+                </div>
+                <div>
+                    <p>Kunst id: </p>
+                    <p> ${objDetails.id}</p>
+                </div>
+                <div>
+                    <p>Materials:</p>
+                    <p> ${objDetails.materials}</p>
+                </div>
+                <div>
+                    <p>PresentingDate:</p>
+                    <p>${objDetails.dating.presentingDate}</p>
+                </div>
+    
+                <div>
+                    <p>ProductionPlaces:</p>
+                    <p>${objDetails.dating.productionPlaces}</p>
+                </div>
+                
+            </section>
+       `
+    
+        return article;
 }
 
 
 export async function getZoekenData(searchQuery){
     const Alldata = await fetchData(API_URL, API_KEY);
+
     // Array maken van alle makers namen en een Array van alle titles
     const AllMakersArray = Alldata.artObjects.map(artObject => artObject.principalOrFirstMaker)
     const AllTitlesArray = Alldata.artObjects.map(artObject => artObject.title)
-    
-    // Maak een nieuwe arrays zonder herhalen in
-    // const makersArray = [...new Set(AllMakersArray)];
-    // const titlesArray = [...new Set(AllTitlesArray)];
+    const AllobjectsNummbers = Alldata.artObjects.map(artObject => artObject.objectNumber)
+    let Alltypes = [];
+    let Allmaterials = [];
 
-    // Define an array of autocomplete suggestions
-    const suggestions = [...new Set([...AllMakersArray, ...AllTitlesArray])];
-    // Filter suggestions based on user input
-    // const filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().includes(searchQuery.toLowerCase()));
+    for (const objectNumber of AllobjectsNummbers) {
+        try {
+          searchLoading();
+          const objectDetails = await fetchObjectDetails(objectNumber);
+          Alltypes = Alltypes.concat(objectDetails.artObject.objectTypes);
+          Allmaterials = Allmaterials.concat(objectDetails.artObject.materials);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    
+    const MakersArray = [...new Set(AllMakersArray)];
+    const TitlesArray = [...new Set(AllTitlesArray)];
+    const typesArray = [...new Set(Alltypes)];
+    const materialsArray = [...new Set(Allmaterials)];
 
     let zoeken = '';
 
-    if(suggestions.includes(searchQuery)){
+    if(MakersArray.includes(searchQuery)){
         searchLoading();
         zoeken = 'involvedMaker=' + searchQuery;
         const data = await fetchZoekURL(API_URL,zoeken);
-        searchResultaten(data);
+        searchResultaten(searchQuery,data);
     }
 
-    else if(suggestions.includes(searchQuery)){
+    else if(TitlesArray.includes(searchQuery)){
         searchLoading();
         zoeken = 'title=' + searchQuery;
         var data = await fetchZoekURL(API_URL,zoeken);
-        searchResultaten(data);
+        searchResultaten(searchQuery,data);
+    }
+
+    else if(typesArray.includes(searchQuery)){
+        searchLoading();
+        zoeken = 'type=' + searchQuery;
+        var data = await fetchZoekURL(API_URL,zoeken);
+        searchResultaten(searchQuery,data);
+    }
+
+    else if(materialsArray.includes(searchQuery)){
+        searchLoading();
+        zoeken = 'type=' + searchQuery;
+        var data = await fetchZoekURL(API_URL,zoeken);
+        searchResultaten(searchQuery,data);
     }
 
     else {
         searchLoading();
-        let ul = document.querySelector('main>ul');
-
+        // h2.innerHTML = `GeenResulteten gevonden"${searchQuery}"`;
         ul.innerHTML = '';
-
         ul.innerHTML = `
           <li class="geenResulteten">
             <img src="./images/error.svg" alt="geenResulteten image">
@@ -205,28 +220,9 @@ export async function getZoekenData(searchQuery){
     }
 }
 
-// const searchInput = document.getElementById('main form label input');
-// const suggestionsContainer = document.getElementById('main form div');
-
-// searchInput.addEventListener('input', async function() {
-//   const searchQuery = this.value;
-//   const suggestions = await getZoekenData(searchQuery);
-
-//   // Clear existing suggestions
-//   suggestionsContainer.innerHTML = '';
-
-//   // Add new suggestions to suggestionsContainer
-//   suggestions.forEach(suggestion => {
-//     const suggestionDiv = document.createElement('div');
-//     suggestionDiv.textContent = suggestion;
-//     suggestionsContainer.appendChild(suggestionDiv);
-//   });
-// });
-
 
 // getZoekenData("anoniem");
 
-        // <img src="./images/error.svg" alt="geenResulteten image">
 
 
 
@@ -282,59 +278,3 @@ export async function getZoekenData(searchQuery){
 
 
 
-
-
-
-
-    // const listElement = document.createElement('ul');
-
-    // console.log("ds")
-    // const div_box = document.createElement('div');
-    // const img_buttonElement = document.createElement('button');
-    // const terug_buttonElement = document.createElement('button');
-    // const imageElement = document.createElement('img');
-    // const divElement = document.createElement('div');
-    // const h3Element = document.createElement('h3');
-
-    // imageElement.src = data.artObject.webImage.url; //img
-
-    // img_buttonElement.appendChild(imageElement);
-    // div_box.appendChild(img_buttonElement);
-    // article.innerHTML = div_box;
-
-
-
-
-//     article.innerHTML = `
-//     <article>
-//         <button>
-//             <img src="`${data.artObject.webImage.url}`"
-//                 alt="">
-//         </button>
-
-        // <button>
-        //     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#000000">
-        //         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        //         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-        //         <g id="SVGRepo_iconCarrier">
-        //             <defs>
-        //                 <style>
-        //                     .cls-1 {
-        //                         fill: none;
-        //                         stroke: #ffffff;
-        //                         stroke-linecap: round;
-        //                         stroke-linejoin: round;
-        //                         stroke-width: 2px;
-        //                     }
-        //                 </style>
-        //             </defs>
-        //             <title></title>
-        //             <g id="chevron-bottom">
-        //                 <line class="cls-1" x1="16" x2="7" y1="20.5" y2="11.5"></line>
-        //                 <line class="cls-1" x1="25" x2="16" y1="11.5" y2="20.5"></line>
-        //             </g>
-        //         </g>
-        //     </svg>
-        // </button>
-//     </article>
-// `
