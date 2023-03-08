@@ -45,7 +45,6 @@ export async function TOP10(data) {
         }
     })
 
-    // console.log(array)
 
     const listElement = document.createElement('ul');
 
@@ -61,7 +60,6 @@ export async function TOP10(data) {
         imageElement.alt = item.title + "van" + item.name;
 
         aElement.href = "#object/" + item.objectNumber;
-        // console.log(aElement.href);
 
 
         h3Element.innerText = item.title;
@@ -76,7 +74,6 @@ export async function TOP10(data) {
     const Top10section = document.querySelector('main > section:first-of-type');
     Top10section.appendChild(listElement);
 
-    // console.log("top10 function aan het werken");
 }
 
 TOP10();
@@ -96,7 +93,6 @@ export async function get_details(objectNumber) {
             console.log("none foto")
         }
         article.style.display = "grid";
-        // article.setAttribute(id, "test" `${objDetails.objectNumber}`);
     
         article.innerHTML =
         `
@@ -207,7 +203,6 @@ export async function getZoekenData(searchQuery){
 
     else {
         searchLoading();
-        // h2.innerHTML = `GeenResulteten gevonden"${searchQuery}"`;
         ul.innerHTML = '';
         ul.innerHTML = `
           <li class="geenResulteten">
@@ -220,8 +215,6 @@ export async function getZoekenData(searchQuery){
     }
 }
 
-
-// getZoekenData("anoniem");
 
 
 

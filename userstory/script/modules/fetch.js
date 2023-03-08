@@ -11,12 +11,10 @@ export async function fetchData(API_URL, API_KEY) {
   } 
   catch (error) {
     console.error('Error fetching data:', error);
-    // handle the error, e.g. show an error message to the user
   }
 }
 
 export async function fetchZoekURL(API_URL,zoeken) {
-  // const ALLAPI_URL = `https://www.rijksmuseum.nl/api/nl/collection?&key=${API_KEY}&ps=1000&involvedMaker=${searchQuery}`;
   const ALLAPI_URL = `${API_URL}&${zoeken}`;
 
   console.log('fetchZoekURL', ALLAPI_URL);
@@ -27,7 +25,6 @@ export async function fetchZoekURL(API_URL,zoeken) {
     console.log('fetchZoekURL', data);
     return data;
   } catch (error) {
-    // console.log('fetchZoekURL error', error);
     throw error;
   }
 }
@@ -56,7 +53,6 @@ export async function fetchTypeData(searchQuery) {
 
     console.log(data);
   } catch (error) {
-    // console.log('fetchZoekURL error', error);
     throw error;
   }
 }

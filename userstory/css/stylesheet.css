@@ -221,8 +221,6 @@ header {
     grid-template-rows: 80% 20%;
     gap: .5em;
     justify-items: center;
-
-    /* background-color: var(--theme); */
 }
 
 header h1 {
@@ -408,7 +406,6 @@ main {
     width: 100vw;
     height: 100vh;
 
-    /* padding-top: 2em; */
     padding: 2em 1em 0 1em;
 
     display: grid;
@@ -469,7 +466,7 @@ main form label input[type=search]::-webkit-search-cancel-button {
 
     height: 2em;
     width: 2em;
-    /* background-color: var(--thema-fontcolor); */
+
     background-image: url(https://icones.pro/wp-content/uploads/2021/08/icone-x-avec-cercle-orange.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -485,7 +482,6 @@ main form label button {
     width: var(--button-width);
     height: var(--button-width);
 
-    /* background-color: var(--white-schadow); */
     background-color: var(--white-schadow);
     cursor: pointer;
 
@@ -502,7 +498,6 @@ main form label button {
 
 main>p {
     width: 90%;
-    /* height: auto; */
     max-height: 1em;
     z-index: 100;
 

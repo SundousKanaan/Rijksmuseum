@@ -10,9 +10,6 @@ export async function searchResultaten(searchQuery,data) {
     const makersnamen = mijnData.map(artObject => artObject.principalOrFirstMaker);
     const objectNumbers = mijnData.map(artObject => artObject.objectNumber);
 
-
-    // console.log("hi" , imageURLs);
-
     let array = imageTitels.map((item, index) => {
         return {
             "image": imageURLs[index],
