@@ -27,7 +27,7 @@ Als kunstliefhebber biedt de app u de mogelijkheid om kunstwerken rechtstreeks v
 
 <img>
 
-### De app [wireflow]()
+### De app [wireflow](https://github.com/SundousKanaan/web-app-from-scratch-2223/wiki/WEEK-3)
 
 ### Mijn Data source is [Rijksmuseum data services](https://data.rijksmuseum.nl/object-metadata/api/)
 
@@ -40,13 +40,23 @@ Deze API geeft een collectie API van de kunst werken van het meusum zoals:
 ## Mijn program
 
 Ik wil:  
+
 *Zoekenbalk* | ✅ Done
+
 *Verschillende zoeken opties* | ✅ Done - Ik heb 4 zoeken opties
+
 *Detailspagina* | ✅ Done
+
 *Favoriete Pagina* | Not done - Proberen om in het toekomst te hebben
+
 *Filter voor de zoekbalk* | Not done - Proberen om in het toekomst te hebben
+
 *Loeding states* | ✅ Gedeeltelijk heb 
+
 *Error states* | ✅  Gedeeltelijk heb
+
 *Empty state* | Not done | Proberen om in het toekomst te hebben
+
 *Een schema an de kunst kleuren* | Not done - Proberen om in het toekomst te hebben voor een favoriete Pagina
+
 *Meer data halen/functies* | Not done - Proberen om in het toekomst te hebben?
