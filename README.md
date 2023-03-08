@@ -25,7 +25,7 @@ Als kunstliefhebber biedt de app u de mogelijkheid om kunstwerken rechtstreeks v
 
 ### Mijn App Home page
 
-<img>
+<img src="https://github.com/SundousKanaan/web-app-from-scratch-2223/blob/6df7961c9a25df6d20df830a1039a505f9568e64/userstory/images/home.png" width="300px" >
 
 ### De app [wireflow](https://github.com/SundousKanaan/web-app-from-scratch-2223/wiki/WEEK-3)
 
@@ -33,7 +33,7 @@ Als kunstliefhebber biedt de app u de mogelijkheid om kunstwerken rechtstreeks v
 
 Deze API geeft een collectie API van de kunst werken van het meusum zoals:
 
-<img>
+<img src="https://github.com/SundousKanaan/web-app-from-scratch-2223/blob/6df7961c9a25df6d20df830a1039a505f9568e64/userstory/images/API-collectie.png" width="70%">
 
 ---
 
